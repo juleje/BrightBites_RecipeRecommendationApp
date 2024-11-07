@@ -15,7 +15,6 @@
 	padding: 3em;
 	justify-content: center;
 	align-items: center;
-	padding-top: 20%;
 	overflow-y: auto;
 }
 
@@ -24,8 +23,18 @@
 	top: 1%;
 	right: 1%;
 	border-radius: 4px;
+	width: 8%;
+	min-width: 80px;
+	height: 8%;
+	min-height: 80px;
+}
+
+.logo:hover {
+	cursor: pointer;
+	width: 10%;
+	height: 10%;
 }
 
 .cardgrid {
-	margin-top: 100px;
+	height: 90%;
 }

@@ -1,7 +1,8 @@
 // src/components/RecipesWithoutExplanation.js
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import logo from '../img/logo.svg';
-import '../css/RecipesWithoutExplenation.css';
+import '../css/RecipesWithExplenation.css';
 import { Box, Typography, Alert, AlertTitle, Card, CardContent, CardMedia, Grid, CircularProgress } from '@mui/material';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import ScaleIcon from '@mui/icons-material/Scale';
@@ -9,6 +10,7 @@ import ViewInArIcon from '@mui/icons-material/ViewInAr';
 
 
 const RecipesWithxplanation = () => {
+	const navigate = useNavigate();
 	const [mealData, setMealData] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -16,6 +18,7 @@ const RecipesWithxplanation = () => {
 	// Function to fetch data from the API
 	const fetchMealData = async () => {
 		try {
+			setIsLoading(true)
 			const response = await fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata");
 			if (!response.ok) {
 				throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -62,10 +65,10 @@ const RecipesWithxplanation = () => {
 			<Box class="main">
 				{/* Logo in top right */}
 				<img
+					onClick={() => navigate("/")}
 					class="logo"
 					src={logo}
 					alt="Logo"
-					style={{ width: '50px', height: '50px' }} // Adjust size as needed
 				/>
 				{isLoading ? (
 					<div>
