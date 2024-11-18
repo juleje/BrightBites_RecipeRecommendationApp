@@ -15,6 +15,22 @@ const RecipesWithxplanation = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
 
+	// Function To Test Backend
+	const fetchTestBackend = async () => {
+		try {
+			setIsLoading(true)
+			const response = await fetch("http://127.0.0.1:5000/");
+			if (!response.ok) {
+				throw new Error(`Error ${response.status}: ${response.statusText}`);
+			}
+			console.log(await response.json())
+		} catch (error) {
+			throw error;
+		}
+	};
+
+
+
 	// Function to fetch data from the API
 	const fetchMealData = async () => {
 		try {
@@ -24,7 +40,6 @@ const RecipesWithxplanation = () => {
 				throw new Error(`Error ${response.status}: ${response.statusText}`);
 			}
 			const data = await response.json();
-			setTimeout(50000)
 			return data;
 		} catch (error) {
 			throw error;
@@ -51,6 +66,7 @@ const RecipesWithxplanation = () => {
 	// Run on component mount
 	useEffect(() => {
 		fetchMealsSixTimes()
+		fetchTestBackend()
 		setIsLoading(false);  // Set loading to false after all calls complete
 	}, []);
 

@@ -20,7 +20,6 @@ const RecipesWithoutExplanation = () => {
 				throw new Error(`Error ${response.status}: ${response.statusText}`);
 			}
 			const data = await response.json();
-			setTimeout(50000)
 			return data;
 		} catch (error) {
 			throw error;

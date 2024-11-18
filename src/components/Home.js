@@ -7,6 +7,31 @@ import '../css/Home.css';
 function Home() {
 	const navigate = useNavigate();
 
+	const handlePostRequest = async () => {
+		try {		  
+		  const data = {
+			"hello": "world"
+		  };
+	
+		  const response = await fetch("http://127.0.0.1:5000/generate", {
+			method: "POST",
+			headers: {
+			  "Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+		  });
+	
+		  if (!response.ok) {
+			throw new Error(`Error ${response.status}: ${response.statusText}`);
+		  }
+	
+		  const jsonData = await response.json();
+		  console.log(jsonData); // Log the response to the console
+		} catch (error) {
+		  console.error("Error making POST request:", error);
+		} 
+	  };
+
 
 	return (
 		<Box display="flex" height="100vh">
@@ -27,7 +52,7 @@ function Home() {
 				{/* Search Area */}
 				<Box class="searcharea">
 					<Button variant="contained" endIcon={<SearchIcon />}
-						onClick={() => navigate("/recipes-with-explanation")}
+						onClick={() => {handlePostRequest();navigate("/recipes-with-explanation");}}
 					>
 						Send Recipes (expl)
 					</Button>
