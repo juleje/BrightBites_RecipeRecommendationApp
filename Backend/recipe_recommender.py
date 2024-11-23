@@ -11,11 +11,10 @@ import os
 import google.generativeai as genai
 from scipy.sparse import save_npz, load_npz
 import joblib
-import ast
-
+import json
 
 dataset = datasets.load_dataset(
-    "parquet", data_files="./recipes.indexed.parquet")['train']  # requires the parquet file ofc
+    "parquet", data_files="Backend/data/new_recipes.indexed.parquet")['train']  # requires the parquet file ofc
 
 # Preprocessing function
 digits = re.compile(r'\d')
@@ -37,7 +36,7 @@ def preprocess(doc):
     return words
 
 
-""" 
+"""
 ['RecipeId',
  'Name',
  'AuthorId',
@@ -66,7 +65,7 @@ def preprocess(doc):
  'RecipeServings',
  'RecipeYield',
  'RecipeInstructions',
- '__index_level_0__'] 
+ '__index_level_0__']
  """
 
 
@@ -76,7 +75,7 @@ dataset = dataset.map(lambda x: {"text": " ".join(
     [str(x[col]) for col in all_columns])})
 
 new_data = dataset.remove_columns(all_columns)
-dataset.remove_columns("text")
+dataset = dataset.remove_columns("text")
 
 # TF-IDF implementation
 # vectorizer = TfidfVectorizer(tokenizer=preprocess)
@@ -84,8 +83,8 @@ dataset.remove_columns("text")
 # X = vectorizer.fit_transform(new_data['text'])
 # joblib.dump(vectorizer, "vectorizer.joblib")
 # save_npz("tfidf_matrix.npz", X)
-vectorizer = joblib.load("vectorizer.joblib")
-X = load_npz("tfidf_matrix.npz")
+vectorizer = joblib.load("Backend/data/vectorizer.joblib")
+X = load_npz("Backend/data/tfidf_matrix.npz")
 
 
 def string_to_vector(query_string):
@@ -101,53 +100,65 @@ def relevant_docs(query_vector):
     cos_results = [(dataset[i], cosine_similarities[0][i])
                    for i in cos_res.tolist()]
     actual_rel = [filtered[0] for filtered in cos_results if (
-        filtered[1] > 0.121 and filtered[1] > cos_results[20][1])]  # These parameters need finetuning
+        filtered[1] > 0.121 and filtered[1] > cos_results[10][1])]  # Determine the amount of recipes
     return actual_rel
 
-
-# Nutrition information (calories (#), total fat (PDV), sugar (PDV) , sodium (PDV) , protein (PDV) , saturated fat)
 
 def docs_dic_to_string(rel_docs):
     recipes = ""
     for l in range(len(rel_docs)):
         recipes += f"Recipe: {l+1}\n"
+        recipes += f"Id: {rel_docs[l]['RecipeId']}\n"
         recipes += f"Name: {rel_docs[l]['Name']}\n"
         recipes += f"Ingredients: {rel_docs[l]['RecipeIngredientParts']+rel_docs[l]['RecipeIngredientQuantities']}\n"
         recipes += f"Steps: {rel_docs[l]['RecipeInstructions']}\n"
         recipes += f"Keywords: {rel_docs[l]['Keywords']}\n"
         recipes += f"Calories: {rel_docs[l]['Calories']}\n"
         recipes += f"Total fat: {rel_docs[l]['FatContent']}\n"
-        recipes += f"Estimated time: {rel_docs[l]['TotalTime']}\n \n"
+        # recipes += f"Estimated time: {rel_docs[l]['TotalTime']}\n \n"
     return recipes
 
 
 def doc_to_string(doc):
     ret = ''
+    ret += f"Id: {doc['RecipeId']}\n"
     ret += f"Name: {doc['Name']}\n"
     ret += f"Ingredients: {doc['RecipeIngredientParts'] + doc['RecipeIngredientQuantities']}\n"
     ret += f"Steps: {doc['RecipeInstructions']}\n"
     ret += f"Keywords: {doc['Keywords']}\n"
     ret += f"Calories: {doc['Calories']}\n"
     ret += f"Total fat: {doc['FatContent']}\n"
-    ret += f"Estimated time: {doc['TotalTime']}\n"
+    # ret += f"Estimated time: {doc['TotalTime']}\n"
     return ret
 
 
-own_query = "Mapo tofu"
+# outputs all the columns of the recipes in a JSON format
+def docs_dic_to_json(rel_docs):
+    return json.dumps(rel_docs, indent=4)
 
 
-prompt = f"""I want you to display the inputted recipe options in full. Just give the recipes again and 
-provide explanations for each recipe focus on how they are healthy. (put these explanations in JSON format!)
-The recipes are: {docs_dic_to_string(relevant_docs(string_to_vector(own_query)))}"""
-print(prompt)
+own_query = "Chicken pasta pesto tomato onion"
 
-"""
+
+prompt = f"""Provide explanations for each recipe focus on how they are healthy. (put these explanations in JSON format!)
+The recipes are: {docs_dic_to_string(relevant_docs(string_to_vector(own_query)))}. Be sure to add the recipe ID's to the JSON file!"""
+# print(prompt)
+
+# print(docs_dic_to_json(relevant_docs(string_to_vector(own_query))))
+
+
 os.environ["API_KEY"] = 'AIzaSyAL6qjr1MajxRyNeVu0skzC4JvLiluPEH8'
 genai.configure(api_key=os.environ["API_KEY"])
 
 genai.configure(api_key=os.environ["API_KEY"])
 model = genai.GenerativeModel("gemini-1.5-flash")
 response = model.generate_content(f"{prompt}")
-print(prompt)
-print(response.text)
-"""
+# print(prompt)
+# print(response.text)
+
+
+def input_query(query):
+    return docs_dic_to_json(relevant_docs(string_to_vector(query))) + "\n" + response.text
+
+
+# print(input_query(own_query))
