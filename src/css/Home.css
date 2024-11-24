@@ -1,35 +1,65 @@
-.sidebar {
-	width: 10%;
-	background-color: #e0e0e0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 2em;
-}
-
-.main {
-	flex: 1;
+/* Container */
+.container {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	background-color: #fff;
+	padding: 20px;
+}
+
+/* Header */
+.header {
+	font-size: 28px;
+	font-weight: bold;
+	color: #00b2b2;
+	margin-bottom: 20px;
+}
+
+/* Striped Box */
+.box {
 	position: relative;
-	padding: 3em;
-	justify-content: center;
-	align-items: center;
+	width: 80%;
+	height: 250px;
+	border: 2px solid black;
+	margin-bottom: 20px;
+	overflow: hidden;
 }
 
-.logo {
+
+.healthy-image {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    object-fit: cover;
+}
+
+
+/* Start Button */
+.start-button {
 	position: absolute;
-	top: 1%;
-	right: 1%;
-	padding: 8px 16px;
-	border-radius: 4px;
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #00b2b2;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
-.searcharea {
-	flex: 0.5;
-	width: 75%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #c0c0c0;
+.start-button:hover {
+	background-color: #008080;
+}
+
+/* Description */
+.description {
+	font-size: 16px;
+	color: #333;
+	text-align: center;
+	max-width: 80%;
 }

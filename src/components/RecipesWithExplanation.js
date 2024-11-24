@@ -1,35 +1,22 @@
 // src/components/RecipesWithoutExplanation.js
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import logo from '../img/logo.svg';
 import '../css/RecipesWithExplenation.css';
 import { Box, Typography, Alert, AlertTitle, Card, CardContent, CardMedia, Grid, CircularProgress } from '@mui/material';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import ScaleIcon from '@mui/icons-material/Scale';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
+import { useRecipes } from '../hooks/RecipeContext';
 
 
 const RecipesWithxplanation = () => {
+	const { setRecipes } = useRecipes();
+
 	const navigate = useNavigate();
 	const [mealData, setMealData] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
-
-	// Function To Test Backend
-	const fetchTestBackend = async () => {
-		try {
-			setIsLoading(true)
-			const response = await fetch("http://127.0.0.1:5000/");
-			if (!response.ok) {
-				throw new Error(`Error ${response.status}: ${response.statusText}`);
-			}
-			console.log(await response.json())
-		} catch (error) {
-			throw error;
-		}
-	};
-
-
 
 	// Function to fetch data from the API
 	const fetchMealData = async () => {
@@ -56,6 +43,7 @@ const RecipesWithxplanation = () => {
 				results.push(result);
 			}
 			setMealData(results); // Store all six results in state
+			setRecipes(results)
 		} catch (error) {
 			setError(error.message); // Set the error message in state
 		} finally {
@@ -66,16 +54,11 @@ const RecipesWithxplanation = () => {
 	// Run on component mount
 	useEffect(() => {
 		fetchMealsSixTimes()
-		fetchTestBackend()
 		setIsLoading(false);  // Set loading to false after all calls complete
 	}, []);
 
 	return (
 		<Box display="flex" height="100vh">
-			{/* Sidebar */}
-			<Box class="sidebar">
-				<Typography variant="h6">Lorem ipsum</Typography>
-			</Box>
 
 			{/* Main Content Area */}
 			<Box class="main">
@@ -100,38 +83,40 @@ const RecipesWithxplanation = () => {
 				) : (
 					<Grid container spacing={3} className='cardgrid'>
 						{mealData.map((meal, index) => (
-							<Grid item xs={12} sm={6} md={4} key={index}>
-								<Card>
-									<CardMedia
-										component="img"
-										height="140"
-										image={meal["meals"][0]["strMealThumb"]}
-										alt={meal["meals"][0]["strMeal"]}
-									/>
-									<CardContent>
-										<Typography variant="h6">{meal["meals"][0]["strMeal"]}</Typography>
-										<Typography variant="body2" color="textSecondary">
-											Category: {meal["meals"][0]["strCategory"]}
-										</Typography>
-										<Typography variant="body2" color="textSecondary">
-											Cuisine: {meal["meals"][0]["strArea"]}
-										</Typography>
-										{/* Icons for kcal, fat, and sugar */}
-										<Box display="flex" alignItems="center" mt={1}>
-											<LocalFireDepartmentIcon color="error" style={{ marginRight: 4 }} />
-											<Typography variant="body2">Kcal: 500</Typography>
-										</Box>
-										<Box display="flex" alignItems="center" mt={1}>
-											<ScaleIcon color="primary" style={{ marginRight: 4 }} />
-											<Typography variant="body2">Fat: 20g</Typography>
-										</Box>
-										<Box display="flex" alignItems="center" mt={1}>
-											<ViewInArIcon color="secondary" style={{ marginRight: 4 }} />
-											<Typography variant="body2">Sugar: 15g</Typography>
-										</Box>
-									</CardContent>
-								</Card>
-							</Grid>
+							<Link key={index} to={`/recipe/${index}`}>
+								<Grid item xs={12} sm={6} md={4} key={index}>
+									<Card>
+										<CardMedia
+											component="img"
+											height="140"
+											image={meal["meals"][0]["strMealThumb"]}
+											alt={meal["meals"][0]["strMeal"]}
+										/>
+										<CardContent>
+											<Typography variant="h6">{meal["meals"][0]["strMeal"]}</Typography>
+											<Typography variant="body2" color="textSecondary">
+												Category: {meal["meals"][0]["strCategory"]}
+											</Typography>
+											<Typography variant="body2" color="textSecondary">
+												Cuisine: {meal["meals"][0]["strArea"]}
+											</Typography>
+											{/* Icons for kcal, fat, and sugar */}
+											<Box display="flex" alignItems="center" mt={1}>
+												<LocalFireDepartmentIcon color="error" style={{ marginRight: 4 }} />
+												<Typography variant="body2">Kcal: 500</Typography>
+											</Box>
+											<Box display="flex" alignItems="center" mt={1}>
+												<ScaleIcon color="primary" style={{ marginRight: 4 }} />
+												<Typography variant="body2">Fat: 20g</Typography>
+											</Box>
+											<Box display="flex" alignItems="center" mt={1}>
+												<ViewInArIcon color="secondary" style={{ marginRight: 4 }} />
+												<Typography variant="body2">Sugar: 15g</Typography>
+											</Box>
+										</CardContent>
+									</Card>
+								</Grid>
+							</Link>
 						))}
 					</Grid>
 				)}
@@ -139,8 +124,5 @@ const RecipesWithxplanation = () => {
 		</Box>
 	);
 };
-/*
 
-					
-					*/
 export default RecipesWithxplanation;
