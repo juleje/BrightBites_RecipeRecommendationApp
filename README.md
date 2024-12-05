@@ -9,7 +9,7 @@ NPM is also installed togheter with the node.js framework.
 
 ### Install Node Modules
 
-Open terminal and type `npm i` this will install all needed node modules
+Open terminal in the root folder of this project and type `npm i` this will install all needed node modules
 
 ## Run
 
