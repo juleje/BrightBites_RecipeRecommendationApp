@@ -13,14 +13,12 @@ Open terminal and type `npm i` this will install all needed node modules
 
 ## Run
 
-## Run Backend
+### Run Backend
 Go to /Backend folder. Open terminal and type `python backendapi.py`. This runs the backend api that is build in python using flask;
 
 ### Run Frontend
 
-In the project directory, you can run:
-
-### `npm start`
+In the project directory, you can run: `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
