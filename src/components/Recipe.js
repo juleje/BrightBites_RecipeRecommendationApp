@@ -3,26 +3,26 @@ import { useParams } from 'react-router-dom';
 import { useRecipes } from '../hooks/RecipeContext';
 
 function Recipe() {
-  const { index } = useParams();
-  const { recipes } = useRecipes();
+	const { index } = useParams();
+	const { recipes } = useRecipes();
 
 
-  // Assuming the recipes array is accessible here (e.g., through context or props)
-  const recipe = recipes[index];
-  console.log(recipes.size)
+	// Assuming the recipes array is accessible here (e.g., through context or props)
+	const t = recipes[index];
+	const clickedRecipe = t.meals[0];
 
-  if (!recipe) {
-    return <div>Recipe not found</div>;
-  }
-
-  return (
-    <div className="recipe-page">
-      <h2>{recipe.name}</h2>
-      <p>{recipe.category}</p>
-      <p>{recipe.cuisine}</p>
-      {/* Add more recipe details as needed */}
-    </div>
-  );
+	if (!clickedRecipe) {
+		return <div>Recipe not found</div>;
+	} else {
+		return (
+			<div className="recipe-page">
+				<h2>{clickedRecipe.strMeal}</h2>
+				<p>{clickedRecipe.strCategory}</p>
+				<p>{clickedRecipe.strArea}</p>
+				{/* Add more recipe details as needed */}
+			</div>
+		);
+	}
 }
 
 export default Recipe;

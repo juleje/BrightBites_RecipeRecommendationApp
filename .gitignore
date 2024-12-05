@@ -1,2 +1,5 @@
 node_modules/
 Backend/data/
+Backend/recipes.indexed.parquet
+Backend/tfidf_matrix.npz
+Backend/vectorizer.joblib

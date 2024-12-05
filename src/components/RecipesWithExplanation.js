@@ -11,7 +11,7 @@ import { useRecipes } from '../hooks/RecipeContext';
 
 
 const RecipesWithxplanation = () => {
-	const { setRecipes } = useRecipes();
+	const { recipes, setRecipes } = useRecipes();
 
 	const navigate = useNavigate();
 	const [mealData, setMealData] = useState([]);
@@ -36,6 +36,7 @@ const RecipesWithxplanation = () => {
 	// Sequentially fetch data six times 
 	const fetchMealsSixTimes = async () => {
 		try {
+			setIsLoading(true);
 			//LOOP FOR TESTING REASONS
 			const results = [];
 			for (let i = 0; i < 12; i++) {
@@ -43,7 +44,7 @@ const RecipesWithxplanation = () => {
 				results.push(result);
 			}
 			setMealData(results); // Store all six results in state
-			setRecipes(results)
+			setRecipes(results); // Update context
 		} catch (error) {
 			setError(error.message); // Set the error message in state
 		} finally {
@@ -57,15 +58,17 @@ const RecipesWithxplanation = () => {
 		setIsLoading(false);  // Set loading to false after all calls complete
 	}, []);
 
+
+
 	return (
 		<Box display="flex" height="100vh">
 
 			{/* Main Content Area */}
-			<Box class="main">
+			<Box className="main">
 				{/* Logo in top right */}
 				<img
 					onClick={() => navigate("/")}
-					class="logo"
+					className="logo"
 					src={logo}
 					alt="Logo"
 				/>
@@ -80,11 +83,11 @@ const RecipesWithxplanation = () => {
 							There was an error fetching the meal data — <strong>{error}</strong>
 						</Alert>
 					</Box>
-				) : (
+				) : recipes && recipes.length > 0 ? (
 					<Grid container spacing={3} className='cardgrid'>
 						{mealData.map((meal, index) => (
 							<Link key={index} to={`/recipe/${index}`}>
-								<Grid item xs={12} sm={6} md={4} key={index}>
+								<Grid item xs={12} sm={6} md={4}>
 									<Card>
 										<CardMedia
 											component="img"
@@ -119,7 +122,9 @@ const RecipesWithxplanation = () => {
 							</Link>
 						))}
 					</Grid>
-				)}
+				) : (
+					<div>No recipes available</div>
+				  )}
 			</Box>
 		</Box>
 	);
