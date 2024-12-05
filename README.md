@@ -11,7 +11,12 @@ NPM is also installed togheter with the node.js framework.
 
 Open terminal and type `npm i` this will install all needed node modules
 
-## Available Scripts
+## Run
+
+## Run Backend
+Go to /Backend folder. Open terminal and type `python backendapi.py`. This runs the backend api that is build in python using flask;
+
+### Run Frontend
 
 In the project directory, you can run:
 
@@ -23,7 +28,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm run build`
+## Deployment
+
+`npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
