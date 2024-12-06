@@ -3,11 +3,33 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 ## Install
 
-### Install Node.js and npm
+### Install Backend
+
+#### Install python
+
+#### Download files from healthify drive
+- Log in with healthifygroup@gmail.com/420blazeit69!!!.
+- Go to drive.
+- Download: tfidf_matrix.npz, recipes.indexed.parquet, vectorizer.joblib
+- Make in /Backend new folder /data.
+- Move the downloaded files to the /Backend/data folder in the repo.
+
+#### Install python packages
+- open terminal /backend
+- pip install scikit-learn
+- pip install nltk
+- pip install google-generativeai
+- pip install datasets
+- pip install flask
+- pip install flask_cors
+
+### Install Frontend
+
+#### Install Node.js and npm
 Needed for running the dev env.
 NPM is also installed togheter with the node.js framework.
 
-### Install Node Modules
+#### Install Node Modules
 
 Open terminal in the root folder of this project and type `npm i` this will install all needed node modules
 
