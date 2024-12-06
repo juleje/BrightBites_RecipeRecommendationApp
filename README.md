@@ -10,7 +10,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 #### Download files from healthify drive
 - Log in with healthifygroup@gmail.com/420blazeit69!!!.
 - Go to drive.
-- Download: tfidf_matrix.npz, recipes.indexed.parquet, vectorizer.joblib
+- Download: tfidf_matrix.npz, new_recipes.indexed.parquet, vectorizer.joblib
 - Make in /Backend new folder /data.
 - Move the downloaded files to the /Backend/data folder in the repo.
 
