@@ -6,9 +6,11 @@ import DietaryPreferences from './queryparts/dietary';
 import CuisinePreferences from './queryparts/cuisine';
 import IngredientSelection from './queryparts/ingridients';
 import {handlePostRequest} from '../services/backendService'
+import { useRecipes } from '../hooks/RecipeContext';
 
 function Querymaker() {
 	const navigate = useNavigate();
+	const { setRecipes } = useRecipes();
 
 	
 	const [isDietary, setIsDietary] = useState(true);
@@ -27,7 +29,7 @@ function Querymaker() {
 
 	const handleGenerateRecipies = () => {
 		navigate("/recipies")
-		handlePostRequest()
+		handlePostRequest(setRecipes)
 	}
 	
 

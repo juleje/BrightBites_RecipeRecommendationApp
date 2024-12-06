@@ -11,52 +11,42 @@ import { useRecipes } from '../hooks/RecipeContext';
 
 
 const RecipesWithxplanation = () => {
-	const { recipes, setRecipes } = useRecipes();
+	const { recipes } = useRecipes();
 
 	const navigate = useNavigate();
-	const [mealData, setMealData] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState(false);
 
-	// Function to fetch data from the API
-	const fetchMealData = async () => {
-		try {
-			setIsLoading(true)
-			const response = await fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata");
-			if (!response.ok) {
-				throw new Error(`Error ${response.status}: ${response.statusText}`);
-			}
-			const data = await response.json();
-			return data;
-		} catch (error) {
-			throw error;
-		}
-	};
 
-	// Sequentially fetch data six times 
-	const fetchMealsSixTimes = async () => {
-		try {
-			setIsLoading(true);
-			//LOOP FOR TESTING REASONS
-			const results = [];
-			for (let i = 0; i < 12; i++) {
-				const result = await fetchMealData();
-				results.push(result);
+
+	/*
+		// Run on component mount
+		useEffect(() => {
+			console.log(recipes)
+			if(recipes==="error"){
+				setError(true)
 			}
-			setMealData(results); // Store all six results in state
-			setRecipes(results); // Update context
-		} catch (error) {
-			setError(error.message); // Set the error message in state
-		} finally {
-			setIsLoading(false); // Set loading to false after all calls complete, regardless of success or failure
-		}
-	};
+			if(!recipes){
+				setIsLoading(true)
+			}
+		}, []);
+		*/
 
 	// Run on component mount
 	useEffect(() => {
-		fetchMealsSixTimes()
-		setIsLoading(false);  // Set loading to false after all calls complete
-	}, []);
+		console.log(recipes)
+		console.log(Array.isArray(recipes))
+		if (recipes === "error") {
+			setError(true)
+		} else {
+			setError(false)
+		}
+		if (!recipes) {
+			setIsLoading(true)
+		} else {
+			setIsLoading(false)
+		}
+	}, [recipes]);
 
 
 
@@ -85,23 +75,27 @@ const RecipesWithxplanation = () => {
 					</Box>
 				) : recipes && recipes.length > 0 ? (
 					<Grid container spacing={3} className='cardgrid'>
-						{mealData.map((meal, index) => (
+						{recipes.map((meal, index) => (
 							<Link key={index} to={`/recipe/${index}`}>
 								<Grid item xs={12} sm={6} md={4}>
 									<Card>
 										<CardMedia
 											component="img"
 											height="140"
-											image={meal["meals"][0]["strMealThumb"]}
-											alt={meal["meals"][0]["strMeal"]}
+											image={meal["Images"]}
+
+											//todo get one image of the list
+											//.split(',').map(url => url.trim().replace(/^"|"$/g, ''))[0]
+											//""https://img.sndimg.com/food/image/upload/w_555,h_416,c_fit,fl_progressive,q_95/v1/img/recipes/28/07/67/picWCKjGq.jpg", "https://img.sndimg.com/food/image/upload/w_555,h_416,c_fit,fl_progressive,q_95/v1/img/recipes/28/07/67/picTftMcf.jpg", "https://img.sndimg.com/food/image/upload/w_555,h_416,c_fit,fl_progressive,q_95/v1/img/recipes/28/07/67/picp0lR15.jpg""
+											alt={meal["Name"]}
 										/>
 										<CardContent>
-											<Typography variant="h6">{meal["meals"][0]["strMeal"]}</Typography>
+											<Typography variant="h6">{meal["Name"]}</Typography>
 											<Typography variant="body2" color="textSecondary">
-												Category: {meal["meals"][0]["strCategory"]}
+												Category: {meal["RecipeCategory"]}
 											</Typography>
 											<Typography variant="body2" color="textSecondary">
-												Cuisine: {meal["meals"][0]["strArea"]}
+												Time: {meal["TotalTime"]}
 											</Typography>
 											{/* Icons for kcal, fat, and sugar */}
 											<Box display="flex" alignItems="center" mt={1}>
@@ -124,7 +118,7 @@ const RecipesWithxplanation = () => {
 					</Grid>
 				) : (
 					<div>No recipes available</div>
-				  )}
+				)}
 			</Box>
 		</Box>
 	);

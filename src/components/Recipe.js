@@ -16,10 +16,11 @@ function Recipe() {
 	} else {
 		return (
 			<div className="recipe-page">
-				<h2>{clickedRecipe.strMeal}</h2>
-				<p>{clickedRecipe.strCategory}</p>
-				<p>{clickedRecipe.strArea}</p>
-				{/* Add more recipe details as needed */}
+				<h2>{clickedRecipe.Name}</h2>
+			
+				{/* Add more recipe details as needed */
+					
+				}
 			</div>
 		);
 	}
