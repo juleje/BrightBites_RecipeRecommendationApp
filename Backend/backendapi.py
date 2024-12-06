@@ -208,7 +208,7 @@ def generate():
         "hello": data["hello"]
     }
     print(new_task)
-    input_query("italian and tomato's")
+    print(input_query("italian and tomato's"))
 
     return jsonify(new_task), 201
 
