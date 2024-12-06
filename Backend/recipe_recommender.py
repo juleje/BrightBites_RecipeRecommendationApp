@@ -3,6 +3,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import re
 import string
 import numpy as np
+import nltk
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -12,7 +13,11 @@ import google.generativeai as genai
 from scipy.sparse import save_npz, load_npz
 import joblib
 import json
+import os
 
+#nltk.download("stopwords")
+#nltk.download('punkt_tab')
+#nltk.download('wordnet')
 dataset = datasets.load_dataset(
     "parquet", data_files="Backend/data/new_recipes.indexed.parquet")['train']  # requires the parquet file ofc
 
@@ -78,12 +83,13 @@ new_data = dataset.remove_columns(all_columns)
 dataset = dataset.remove_columns("text")
 
 # TF-IDF implementation
-# vectorizer = TfidfVectorizer(tokenizer=preprocess)
+#vectorizer = TfidfVectorizer(tokenizer=preprocess)
 # This function takes around 9 minutes rest of the code is way faster
 # X = vectorizer.fit_transform(new_data['text'])
 # joblib.dump(vectorizer, "vectorizer.joblib")
 # save_npz("tfidf_matrix.npz", X)
-vectorizer = joblib.load("Backend/data/vectorizer.joblib")
+#vectorizer_path = os.path.join(os.path.dirname(__file__), "data/vectorizer.joblib")
+vectorizer = joblib.load(r"C:\Users\jules\Desktop\KUL\FMMI\Backend\data\vectorizer.joblib") #r"C:\Users\jules\Desktop\KUL\FMMI\Backend\data\vectorizer.joblib"
 X = load_npz("Backend/data/tfidf_matrix.npz")
 
 
@@ -145,20 +151,20 @@ The recipes are: {docs_dic_to_string(relevant_docs(string_to_vector(own_query)))
 # print(prompt)
 
 # print(docs_dic_to_json(relevant_docs(string_to_vector(own_query))))
-
-
+"""
 os.environ["API_KEY"] = 'AIzaSyAL6qjr1MajxRyNeVu0skzC4JvLiluPEH8'
 genai.configure(api_key=os.environ["API_KEY"])
 
 genai.configure(api_key=os.environ["API_KEY"])
 model = genai.GenerativeModel("gemini-1.5-flash")
 response = model.generate_content(f"{prompt}")
+"""
 # print(prompt)
 # print(response.text)
 
 
 def input_query(query):
-    return docs_dic_to_json(relevant_docs(string_to_vector(query))) + "\n" + response.text
+    return docs_dic_to_json(relevant_docs(string_to_vector(query))) #+ "\n" + response.text
 
 
-# print(input_query(own_query))
+#print(input_query(own_query))
