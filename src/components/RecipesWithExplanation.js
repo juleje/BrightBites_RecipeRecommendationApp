@@ -17,25 +17,9 @@ const RecipesWithxplanation = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(false);
 
-
-
-	/*
-		// Run on component mount
-		useEffect(() => {
-			console.log(recipes)
-			if(recipes==="error"){
-				setError(true)
-			}
-			if(!recipes){
-				setIsLoading(true)
-			}
-		}, []);
-		*/
-
 	// Run on component mount
 	useEffect(() => {
 		console.log(recipes)
-		console.log(Array.isArray(recipes))
 		if (recipes === "error") {
 			setError(true)
 		} else {

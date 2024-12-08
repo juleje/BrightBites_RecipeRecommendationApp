@@ -14,11 +14,12 @@ export const handlePostRequest = async (setRecipes) => {
 		});
 
 		if (!response.ok) {
-			//setRecipes("error")
+			setRecipes("error")
 			throw new Error(`Error ${response.status}: ${response.statusText}`);
 		}
 
 		const jsonData = JSON.parse(await response.json());
+		localStorage.setItem('recipes', JSON.stringify(jsonData));
 		setRecipes(jsonData);
 	} catch (error) {
 		console.error("Error making POST request:", error);
