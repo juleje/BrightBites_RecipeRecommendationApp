@@ -208,9 +208,8 @@ def generate():
         "hello": data["hello"]
     }
     print(new_task)
-    print(input_query("italian and tomato's"))
 
-    return jsonify(new_task), 201
+    return jsonify(input_query("italian and tomato's")), 201
 
 if __name__ == "__main__":
     app.run(debug=True)
