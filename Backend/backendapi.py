@@ -21,9 +21,9 @@ import os
 #from recipe_recommender import input_query
 
 
-#nltk.download("stopwords")
-#nltk.download('punkt_tab')
-#nltk.download('wordnet')
+# nltk.download("stopwords")
+# nltk.download('punkt_tab')
+# nltk.download('wordnet')
 dataset = datasets.load_dataset(
     "parquet", data_files="Backend/data/new_recipes.indexed.parquet")['train']  # requires the parquet file ofc
 
@@ -95,7 +95,7 @@ dataset = dataset.remove_columns("text")
 # joblib.dump(vectorizer, "vectorizer.joblib")
 # save_npz("tfidf_matrix.npz", X)
 #vectorizer_path = os.path.join(os.path.dirname(__file__), "data/vectorizer.joblib")
-vectorizer = joblib.load(r"C:\Users\jules\Desktop\KUL\FMMI\Backend\data\vectorizer.joblib") #r"C:\Users\jules\Desktop\KUL\FMMI\Backend\data\vectorizer.joblib"
+vectorizer = joblib.load(r"C:\Users\stpie\Documents\FMMI\Backend\data\vectorizer.joblib")
 X = load_npz("Backend/data/tfidf_matrix.npz")
 
 
@@ -207,7 +207,7 @@ def generate():
     new_task = {
         "hello": data["hello"]
     }
-    print(new_task)
+    # print(new_task)
 
     return jsonify(input_query("italian and tomato's")), 201
 

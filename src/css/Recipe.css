@@ -1,0 +1,71 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+.header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 24px;
+    font-weight: bold;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+	position: absolute;
+	top: -10%;
+	right: 1%;
+	border-radius: 4px;
+	width: 8%;
+	min-width: 80px;
+	height: 8%;
+	min-height: 80px;
+}
+
+.content {
+    width: 85%; /* Use full width to avoid card-like constraints */
+    padding: 10px;
+    background-color: #fff; /* Optional: you can use transparent if you want the background to be like the body */
+    margin-top: 50px; /* Adjust if needed */
+    overflow: hidden; /* Ensure content is not overflowing */
+}
+
+.recipe-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.stats {
+    display: flex;
+    gap: 150px;
+    margin: 10px 0;
+    align-items: center;
+}
+
+/* .stats img {
+    width: 20px;
+    height: 20px;
+} */
+
+.motivation, .health-explanations, .ingredients, .steps {
+    margin-top: 10px;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
