@@ -16,7 +16,7 @@ const CuisinePreferences = ({ handleToIngrdidients }) => {
 	return (
 		<div className="dietary-container">
 			<Typography variant="h5" className="header">
-				Any preffered cuisine?
+				Any prefered cuisine?
 			</Typography>
 
 			<Box className="checkbox-container">

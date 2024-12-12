@@ -7,6 +7,11 @@ const DietaryPreferences = ({ handleToCuisine }) => {
     vegetarian: false,
     vegan: false,
     pescatarian: false,
+    kosher: false,
+    halal: false,
+    dairyfree: false,
+    glutenfree: false,
+    keto: false,
   });
 
   const handleCheckboxChange = (key) => {
@@ -47,11 +52,51 @@ const DietaryPreferences = ({ handleToCuisine }) => {
           }
           label="Pescatarian"
         />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={preferences.kosher}
+              onChange={() => handleCheckboxChange('kosher')} />
+          }
+          label="Kosher"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={preferences.halal}
+              onChange={() => handleCheckboxChange('halal')} />
+          }
+          label="Halal"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={preferences.dairyfree}
+              onChange={() => handleCheckboxChange('dairyfree')} />
+          }
+          label="Dairy-free"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={preferences.glutenfree}
+              onChange={() => handleCheckboxChange('glutenfree')} />
+          }
+          label="Gluten-free"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={preferences.keto}
+              onChange={() => handleCheckboxChange('keto')} />
+          }
+          label="Keto"
+        />
       </Box>
 
       <Box className="button-container">
         <Button variant="contained" color="primary" className="prev-btn" onClick={() => console.log('Prev clicked')}>
-          Prev
+          Previous
         </Button>
         <Button variant="contained" color="secondary" className="skip-btn" onClick={() => handleToCuisine()}>
           Skip

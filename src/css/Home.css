@@ -13,8 +13,9 @@
 .header {
 	font-size: 28px;
 	font-weight: bold;
-	color: #00b2b2;
-	margin-bottom: 20px;
+	color: #0EC704;
+	margin-bottom: 35px;
+	text-shadow: 1px 1px 1px black;
 }
 
 /* Striped Box */
@@ -22,9 +23,10 @@
 	position: relative;
 	width: 80%;
 	height: 250px;
-	border: 2px solid black;
+	border: 2px solid #0EC704;
 	margin-bottom: 20px;
 	overflow: hidden;
+	border-radius: 10px;
 }
 
 
@@ -32,7 +34,6 @@
     width: 100%;
     max-width: 300px;
     border-radius: 10px;
-    margin-bottom: 20px;
     object-fit: cover;
 }
 
@@ -43,12 +44,15 @@
 	bottom: 10px;
 	left: 50%;
 	transform: translateX(-50%);
-	background-color: #00b2b2;
-	color: #fff;
+	background-color: #FFFFFF;
+	color: #0EC704;
 	font-weight: bold;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
+	font-size: 20px;
+	text-shadow: 0.5px 0.5px black;
+	border-color: black;
+	border-width: thin;
+	padding: 10px 45px;
+	border-radius: 10px;
 	cursor: pointer;
 }
 

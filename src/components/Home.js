@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../css/Home.css';
 import homebanner from '../img/homebanner.jpg'
+//import minimalist from '../img/minimalist-logo.jpg'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -11,7 +12,7 @@ const Home = () => {
 	return (
 		<div className="container">
 			{/* Header */}
-			<h1 className="header">HEALTHify</h1>
+			<h1 className="header">Bright Bites</h1>
 
 			{/* image */}
 			<div className="box">
@@ -20,13 +21,13 @@ const Home = () => {
 
 				{/* Start Button */}
 				<button className="start-button"
-					onClick={()=>navigate("/query")}
+					onClick={() => navigate("/query")}
 				>START</button>
 			</div>
 
 			{/* Description */}
 			<p className="description">
-				The recipe recommendation app designed to inspire your healthy lifestyle.
+				The recipe recommendation app designed to inspire your healthy lifestyle!
 			</p>
 		</div>
 	);
