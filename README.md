@@ -22,6 +22,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - pip install datasets
 - pip install flask
 - pip install flask_cors
+- uncomment line 17,18,19: nltk.download("stopwords")
+  - run ones
+  - comment line 17,18,19
+- d
 
 ### Install Frontend
 

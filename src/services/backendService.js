@@ -1,9 +1,10 @@
-export const handlePostRequest = async () => {
+export const handlePostRequest = async (setRecipes) => {
 	try {
 		const data = {
 			"hello": "world"
 		};
 
+		setRecipes(null)
 		const response = await fetch("http://127.0.0.1:5000/generate", {
 			method: "POST",
 			headers: {
@@ -13,11 +14,13 @@ export const handlePostRequest = async () => {
 		});
 
 		if (!response.ok) {
+			setRecipes("error")
 			throw new Error(`Error ${response.status}: ${response.statusText}`);
 		}
 
-		const jsonData = await response.json();
-		console.log(jsonData); // Log the response to the console
+		const jsonData = JSON.parse(await response.json());
+		localStorage.setItem('recipes', JSON.stringify(jsonData));
+		setRecipes(jsonData);
 	} catch (error) {
 		console.error("Error making POST request:", error);
 	}
