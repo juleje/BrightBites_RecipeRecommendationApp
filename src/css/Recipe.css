@@ -24,6 +24,17 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.image-container {
+    position:absolute;
+    top: 60px;
+    height: 200px;
+}
+
+.image-container img {
+    max-height: 300px;
+    width: 100%;
+}
+
 .logo {
 	position: absolute;
 	top: -10%;
@@ -36,11 +47,10 @@ body {
 }
 
 .content {
-    width: 85%; /* Use full width to avoid card-like constraints */
+    width: 95%; 
     padding: 10px;
-    background-color: #fff; /* Optional: you can use transparent if you want the background to be like the body */
-    margin-top: 50px; /* Adjust if needed */
-    overflow: hidden; /* Ensure content is not overflowing */
+    margin-top: 600px; 
+    overflow: hidden; 
 }
 
 .recipe-name {
@@ -51,15 +61,10 @@ body {
 
 .stats {
     display: flex;
-    gap: 150px;
-    margin: 10px 0;
+    justify-content: space-between; /* Or flex-end to align to the right edge */
     align-items: center;
+    margin: 10px 0;
 }
-
-/* .stats img {
-    width: 20px;
-    height: 20px;
-} */
 
 .motivation, .health-explanations, .ingredients, .steps {
     margin-top: 10px;
@@ -69,3 +74,27 @@ body {
     font-weight: bold;
     margin-bottom: 5px;
 }
+
+.nutrition-info {
+    display: flex; /* Set the container to be a flex container */
+    justify-content: space-around; /* Space the items evenly */
+    align-items: center; /* Align items vertically in the center */
+    gap: 20px; /* Add some space between each icon-container */
+} 
+  
+.icon-container {
+    display: flex;
+    flex-direction: column; /* Stack the icon and text vertically */
+    align-items: center; /* Center the icon and text */
+}
+  
+.icon-container img {
+    width: 40px; /* Adjust the size of the icons */
+    height: 40px; /* Adjust the size of the icons */
+}
+  
+.icon-container p {
+    margin-top: 8px; /* Add some space between the icon and text */
+    text-align: center;
+}
+  
