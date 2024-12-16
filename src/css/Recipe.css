@@ -90,11 +90,11 @@ body {
   
 .icon-container img {
     width: 40px; /* Adjust the size of the icons */
-    height: 40px; /* Adjust the size of the icons */
+    height: 50px; /* Adjust the size of the icons */
 }
   
 .icon-container p {
-    margin-top: 8px; /* Add some space between the icon and text */
+    margin-top: 0px; /* Add some space between the icon and text */
     text-align: center;
 }
   

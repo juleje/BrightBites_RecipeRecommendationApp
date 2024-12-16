@@ -9,10 +9,23 @@ import star2 from '../img/2stars.png'
 import star3 from '../img/3stars.png'
 import star4 from '../img/4stars.png'
 import star5 from '../img/5stars.png'
-import calories from '../img/calorie.png'
-import sugar from '../img/sugar.png'
-import fat from '../img/fat.png'
-import sodium from '../img/sodium.png'
+import calories_red from '../img/calorie_red.png'
+import sugar_red from '../img/sugar_red.png'
+import fat_red from '../img/fat_red.png'
+import sodium_red from '../img/sodium_red.png'
+import calories_orange from '../img/calorie_orange.png'
+import sugar_orange from '../img/sugar_orange.png'
+import fat_orange from '../img/fat_orange.png'
+import sodium_orange from '../img/sodium_orange.png'
+import calories_green from '../img/calorie_green.png'
+import sugar_green from '../img/sugar_green.png'
+import fat_green from '../img/fat_green.png'
+import sodium_green from '../img/sodium_green.png'
+
+
+
+
+
 import { click } from '@testing-library/user-event/dist/click';
 import { useNavigate, Link } from 'react-router-dom';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
@@ -34,6 +47,75 @@ function formatDuration(duration) {
     // Format the output as 'h:mm'
     return `${hours > 0 ? hours + 'h' : ''}${minutes < 10 && hours > 0 ? '0' : ''}${minutes}`;
 }
+
+const NutritionInfo = ({ nutrition_icons }) => {
+
+	const thresholds = {
+		calories: { low: 200, medium: 400 },
+		sugar: { low: 10, medium: 20 },
+		fat: { low: 5, medium: 15 },
+		sodium: { low: 150, medium: 300 }
+	};
+
+	const iconMap = {
+		calories_green: calories_green,
+		calories_orange: calories_orange,
+		calories_red: calories_red,
+		sugar_green: sugar_green,
+		sugar_orange: sugar_orange,
+		sugar_red: sugar_red,
+		fat_green: fat_green,
+		fat_orange: fat_orange,
+		fat_red: fat_red,
+		sodium_green: sodium_green,
+		sodium_orange: sodium_orange,
+		sodium_red: sodium_red,
+	  };
+
+	// Define a utility function to determine icon and text based on thresholds
+	const getIconAndText = (value, metric) => {
+	  const { low, medium } = thresholds[metric];
+  
+	  if (value <= low) {
+		return {
+		  icon: `${metric}_green`,
+		  text: `Low ${metric}`,
+		};
+	  } else if (value > low && value <= medium) {
+		return {
+		  icon: `${metric}_orange`,
+		  text: `Medium ${metric}`,
+		};
+	  } else {
+		return {
+		  icon: `${metric}_red`,
+		  text: `High ${metric}`,
+		};
+	  }
+	};
+
+	  // Metrics and their corresponding recipe properties
+	const metrics = [
+	{ metric: "calories", value: nutrition_icons.Calories },
+	{ metric: "sugar", value: nutrition_icons.SugarContent },
+	{ metric: "fat", value: nutrition_icons.FatContent },
+	{ metric: "sodium", value: nutrition_icons.SodiumContent },
+	];
+
+	return (
+	<div className="nutrition-info">
+		{metrics.map(({ metric, value }) => {
+		const { icon, text } = getIconAndText(value, metric);
+		return (
+			<div className="icon-container" key={metric}>
+				<img src={iconMap[icon]} alt={metric}/>
+				<p>{text}</p>
+			</div>
+		);
+		})}
+	</div>
+	);
+};
 
 // Map rating values to corresponding images
 const starRatingMap = {
@@ -145,7 +227,10 @@ function Recipe() {
 							<RatingImage rating={clickedRecipe.AggregatedRating} />
 						</div>
 					</div>
-					<div className="nutrition-info">
+					<div>
+						<NutritionInfo nutrition_icons={clickedRecipe} />
+					</div>
+					{/* <div className="nutrition-info">
 						<div className="icon-container">
 							<img src={calories} alt="Calories" />
 							<p>{clickedRecipe.Calories} kcal</p>
@@ -162,7 +247,8 @@ function Recipe() {
 							<img src={sodium} alt="Sodium" />
 							<p>{clickedRecipe.SodiumContent}mg sodium</p>
 						</div>
-					</div>
+					</div> */}
+
 					<div class="motivation">
 						<div class="section-title">Motivation:</div>
 						<p> - Calorie amount: To burn this amount of calories, you need to climb 300 stairs</p>
