@@ -1,16 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Checkbox, FormControlLabel, Button, Typography, Box } from '@mui/material';
 import '../../css/DietaryPreferences.css';
 
-const CuisinePreferences = ({ handleToIngrdidients }) => {
-	const [preferences, setPreferences] = useState({
-		italian: false,
-		thai: false,
-		mexican: false,
-	});
 
+const CuisinePreferences = ({ handleToIngrdidients, backToDietary, cuisinePreferences, setCuisinePreferences }) => {
+	const [btnState, setBtnState] = useState("Skip");
+	
+
+	const preferencesLists = [
+		'Italian',
+		'Chinese',
+		'Japanese',
+		'Belgian',
+		'Indian',
+		'Thai',
+		'Mexican',
+		'French',
+		'Greek',
+		'Spanish',
+		'Vietnamese',
+		'Korean',
+		'American',
+		'Mediterranean',
+		'Turkish',
+		'Lebanese',
+		'Brazilian',
+		'Ethiopian',
+		'Moroccan',
+		'Caribbean',
+		'German',
+		'Russian',
+		'British',
+		'Egyptian',
+		'Filipino',
+		'Malaysian',
+		'Indonesian',
+		'Persian',
+		'Portuguese',
+		'Polish',
+		'Scandinavian',
+	];
+
+	// Update btnState based on preferences
+	useEffect(() => {
+		const hasSelectedPreferences = Object.values(cuisinePreferences).some((value) => value);
+		setBtnState(hasSelectedPreferences ? "Next" : "Skip");
+	}, [cuisinePreferences]);
+
+	// Toggle checkbox state
 	const handleCheckboxChange = (key) => {
-		setPreferences((prev) => ({ ...prev, [key]: !prev[key] }));
+		setCuisinePreferences((prev) => ({ ...prev, [key]: !prev[key] }));
 	};
 
 	return (
@@ -19,42 +58,27 @@ const CuisinePreferences = ({ handleToIngrdidients }) => {
 				Any prefered cuisine?
 			</Typography>
 
-			<Box className="checkbox-container">
-				<FormControlLabel
-					control={
-						<Checkbox
-							checked={preferences.italian}
-							onChange={() => handleCheckboxChange('italian')}
-						/>
-					}
-					label="Italian"
-				/>
-				<FormControlLabel
-					control={
-						<Checkbox
-							checked={preferences.thai}
-							onChange={() => handleCheckboxChange('thai')}
-						/>
-					}
-					label="Thai"
-				/>
-				<FormControlLabel
-					control={
-						<Checkbox
-							checked={preferences.mexican}
-							onChange={() => handleCheckboxChange('mexican')}
-						/>
-					}
-					label="Mexican"
-				/>
+			<Box className="checkbox-container checkbox-con">
+				{preferencesLists.map((option) => (
+					<FormControlLabel
+						key={option}
+						control={
+							<Checkbox
+								checked={cuisinePreferences[option]}
+								onChange={() => handleCheckboxChange(option)}
+							/>
+						}
+						label={option}
+					/>
+				))}
 			</Box>
 
 			<Box className="button-container">
-				<Button variant="contained" color="primary" className="prev-btn" onClick={() => console.log('Prev clicked')}>
-					Prev
+				<Button variant="contained" color="primary" className="prev-btn" onClick={() => backToDietary()}>
+					Previous
 				</Button>
 				<Button variant="contained" color="secondary" className="skip-btn" onClick={() => handleToIngrdidients()}>
-					Skip
+					{btnState}
 				</Button>
 			</Box>
 		</div>

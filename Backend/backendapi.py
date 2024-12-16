@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from recipe_recommender import input_query
+#from recipe_recommender import input_query
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -96,7 +96,7 @@ dataset = dataset.remove_columns("text")
 # joblib.dump(vectorizer, "vectorizer.joblib")
 # save_npz("tfidf_matrix.npz", X)
 #vectorizer_path = os.path.join(os.path.dirname(__file__), "data/vectorizer.joblib")
-vectorizer = joblib.load(r"C:\Users\jules\Desktop\KUL\FMMI\Backend\data\vectorizer.joblib") #r"C:\Users\jules\Desktop\KUL\FMMI\Backend\data\vectorizer.joblib"
+vectorizer = joblib.load("Backend/data/vectorizer.joblib") #r"C:\Users\jules\Desktop\KUL\FMMI\Backend\data\vectorizer.joblib"
 X = load_npz("Backend/data/tfidf_matrix.npz")
 
 
@@ -206,17 +206,15 @@ def home():
 
 @app.route("/generate", methods=["POST"])
 def generate():
-    if not request.json or "hello" not in request.json:  # body valid
+    if not request.json or "dietary" not in request.json:  # body valid
         print("error invalid data")
         return jsonify({"error": "Invalid data"}), 400
     data = request.json
-    new_task = {
-        "hello": data["hello"]
-    }
-    print(new_task)
-    input_query("Italian and tomato's")
-
-    return jsonify(input_query("italian and tomato's")), 201
+    diets_str = ", ".join(data["dietary"])
+    cuisines_str = ", ".join(data["cuisine"])
+    ingredients_str = ", ".join(data["ingredients"])
+    client_query = f"Recipes that follow the diets {diets_str} from the cuisines {cuisines_str} with the ingredients {ingredients_str}"
+    return jsonify(input_query(client_query)), 201
 
 
 if __name__ == "__main__":

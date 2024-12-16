@@ -1,7 +1,9 @@
-export const handlePostRequest = async (setRecipes) => {
+export const handlePostRequest = async (setRecipes, dietaryPreferences, cuisinePreferences, chosenIngredients) => {
 	try {
 		const data = {
-			"hello": "world"
+			"dietary": dietaryPreferences,
+			"cuisine": cuisinePreferences,
+			"ingredients": chosenIngredients
 		};
 
 		setRecipes(null)
