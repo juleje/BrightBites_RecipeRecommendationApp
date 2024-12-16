@@ -158,20 +158,29 @@ The recipes are: {docs_dic_to_string(relevant_docs(string_to_vector(own_query)))
 # print(prompt)
 
 # print(docs_dic_to_json(relevant_docs(string_to_vector(own_query))))
-"""
-os.environ["API_KEY"] = 'AIzaSyAL6qjr1MajxRyNeVu0skzC4JvLiluPEH8'
+
+# Read the file and set the API key
+with open("Backend/data/apikey.txt", "r") as file:
+    api_key = file.read().strip()  # Read and remove any trailing whitespace
+
+os.environ["API_KEY"] = api_key  # Set API_KEY environment variable
+
 genai.configure(api_key=os.environ["API_KEY"])
 
 genai.configure(api_key=os.environ["API_KEY"])
 model = genai.GenerativeModel("gemini-1.5-flash")
 response = model.generate_content(f"{prompt}")
-"""
-# print(prompt)
-# print(response.text)
+
+#print(prompt)
+#print(response.text)
 
 
 def input_query(query):
-    return docs_dic_to_json(relevant_docs(string_to_vector(query))) #+ "\n" + response.text
+    data_to_return = {
+        "recipes":docs_dic_to_json(relevant_docs(string_to_vector(query))),
+        "explenations": response.text.replace('```json\n','').replace('\n```','')
+      }
+    return  data_to_return
 
 
 #print(input_query(own_query))

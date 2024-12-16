@@ -11,7 +11,7 @@ import { useRecipes } from '../hooks/RecipeContext';
 
 function Querymaker() {
 	const navigate = useNavigate();
-	const { setRecipes } = useRecipes();
+	const { setRecipes, setExplenations } = useRecipes();
 
 	const [dietaryPreferences, setDietaryPreferences] = useState({
 		vegetarian: false,
@@ -106,7 +106,9 @@ function Querymaker() {
 
 	const handleGenerateRecipies = () => {
 		navigate("/recipies")
-		handlePostRequest(setRecipes,
+		handlePostRequest(
+			setRecipes,
+			setExplenations,
 			getSelected(dietaryPreferences),
 			getSelected(cuisinePreferences),
 			chosenIngredients

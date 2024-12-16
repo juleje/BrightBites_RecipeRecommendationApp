@@ -1,4 +1,4 @@
-export const handlePostRequest = async (setRecipes, dietaryPreferences, cuisinePreferences, chosenIngredients) => {
+export const handlePostRequest = async (setRecipes, setExplenations, dietaryPreferences, cuisinePreferences, chosenIngredients) => {
 	try {
 		const data = {
 			"dietary": dietaryPreferences,
@@ -20,9 +20,14 @@ export const handlePostRequest = async (setRecipes, dietaryPreferences, cuisineP
 			throw new Error(`Error ${response.status}: ${response.statusText}`);
 		}
 
-		const jsonData = JSON.parse(await response.json());
-		localStorage.setItem('recipes', JSON.stringify(jsonData));
-		setRecipes(jsonData);
+		const responseread = await response.text()
+		const jsonData = JSON.parse(responseread);
+		const jsonRecipes = JSON.parse(jsonData.recipes);
+		const jsonExplenations = JSON.parse(jsonData.explenations);
+		localStorage.setItem('recipes', JSON.stringify(jsonRecipes));
+		localStorage.setItem('explenations', JSON.stringify(jsonExplenations));
+		setRecipes(jsonRecipes);
+		setExplenations(jsonExplenations);
 	} catch (error) {
 		console.error("Error making POST request:", error);
 	}
