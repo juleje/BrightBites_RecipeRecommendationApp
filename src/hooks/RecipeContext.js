@@ -9,8 +9,14 @@ export const RecipeProvider = ({ children }) => {
 	return storedRecipes ? JSON.parse(storedRecipes) : null;
   });
 
+  const  [explenations, setExplenations] = useState(()=>{
+	//Try to load from localStorage or start with null
+	const storedExplenations = localStorage.getItem('explenations');
+	return storedExplenations ? JSON.parse(storedExplenations) : null;
+  });
+
   return (
-    <RecipeContext.Provider value={{ recipes, setRecipes }}>
+    <RecipeContext.Provider value={{ recipes, setRecipes, explenations, setExplenations }}>
       {children}
     </RecipeContext.Provider>
   );

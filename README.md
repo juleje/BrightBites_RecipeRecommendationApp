@@ -13,6 +13,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Download: tfidf_matrix.npz, new_recipes.indexed.parquet, vectorizer.joblib
 - Make in /Backend new folder /data.
 - Move the downloaded files to the /Backend/data folder in the repo.
+- make new file: apikey.txt and put in the gemini api key for this project
 
 #### Install python packages
 - open terminal /backend

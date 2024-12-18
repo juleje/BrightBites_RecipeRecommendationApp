@@ -1,109 +1,80 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Checkbox, FormControlLabel, Button, Typography, Box } from '@mui/material';
 import '../../css/DietaryPreferences.css';
 
-const DietaryPreferences = ({ handleToCuisine }) => {
-  const [preferences, setPreferences] = useState({
-    vegetarian: false,
-    vegan: false,
-    pescatarian: false,
-    kosher: false,
-    halal: false,
-    dairyfree: false,
-    glutenfree: false,
-    keto: false,
-  });
+const DietaryPreferences = ({ handleToCuisine, backToHome, dietaryPreferences, setDietaryPreferences }) => {
+	const [btnState, setBtnState] = useState("Skip");
 
-  const handleCheckboxChange = (key) => {
-    setPreferences((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
+	const dietaryPreferencesLists = [
+		'Vegetarian',
+		'Vegan',
+		'Pescatarian',
+		'Kosher',
+		'Halal',
+		'Dairyfree',
+		'Glutenfree',
+		'Keto',
+		'Paleo',
+		'Rawvegan',
+		'Lactovegetarian',
+		'Ovovegetarian',
+		'Lactoovovegetarian',
+		'Lowcarb',
+		'Nutfree',
+		'Soyfree',
+		'Fruitarian',
+		'Whole30',
+		'Flexitarian',
+		'Lowfodmap',
+		'Carnivore',
+		'Highprotein',
+		'Diabeticfriendly',
+		'Lowsodium',
+	];
 
-  return (
-    <div className="dietary-container">
-      <Typography variant="h5" className="header">
-        Any dietary preferences?
-      </Typography>
 
-      <Box className="checkbox-container">
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={preferences.vegetarian}
-              onChange={() => handleCheckboxChange('vegetarian')}
-            />
-          }
-          label="Vegetarian"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={preferences.vegan}
-              onChange={() => handleCheckboxChange('vegan')}
-            />
-          }
-          label="Vegan"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={preferences.pescatarian}
-              onChange={() => handleCheckboxChange('pescatarian')}
-            />
-          }
-          label="Pescatarian"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={preferences.kosher}
-              onChange={() => handleCheckboxChange('kosher')} />
-          }
-          label="Kosher"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={preferences.halal}
-              onChange={() => handleCheckboxChange('halal')} />
-          }
-          label="Halal"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={preferences.dairyfree}
-              onChange={() => handleCheckboxChange('dairyfree')} />
-          }
-          label="Dairy-free"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={preferences.glutenfree}
-              onChange={() => handleCheckboxChange('glutenfree')} />
-          }
-          label="Gluten-free"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={preferences.keto}
-              onChange={() => handleCheckboxChange('keto')} />
-          }
-          label="Keto"
-        />
-      </Box>
+	// Update btnState based on preferences
+	useEffect(() => {
+		const hasSelectedPreferences = Object.values(dietaryPreferences).some((value) => value);
+		setBtnState(hasSelectedPreferences ? "Next" : "Skip");
+	}, [dietaryPreferences]);
 
-      <Box className="button-container">
-        <Button variant="contained" color="primary" className="prev-btn" onClick={() => console.log('Prev clicked')}>
-          Previous
-        </Button>
-        <Button variant="contained" color="secondary" className="skip-btn" onClick={() => handleToCuisine()}>
-          Skip
-        </Button>
-      </Box>
-    </div>
-  );
+	// Toggle checkbox state
+	const handleCheckboxChange = (key) => {
+		setDietaryPreferences((prev) => ({ ...prev, [key]: !prev[key] }));
+	};
+
+	return (
+		<div className="dietary-container">
+			<Typography variant="h5" className="header">
+				Any dietary preferences?
+			</Typography>
+
+			<Box className="checkbox-container checkbox-con">
+				{dietaryPreferencesLists.map((option) => (
+					<FormControlLabel
+						key={option}
+						control={
+							<Checkbox
+								checked={dietaryPreferences[option]}
+								onChange={() => handleCheckboxChange(option)}
+							/>
+						}
+						label={option}
+					/>
+				))}
+			</Box>
+
+			<Box className="button-container">
+				<Button variant="contained" color="primary" className="prev-btn" onClick={() => backToHome()}>
+					Previous
+				</Button>
+				<Button variant="contained" color="secondary" className="skip-btn" onClick={() => handleToCuisine()}>
+					{btnState}
+				</Button>
+			</Box>
+		</div>
+	);
 };
 
 export default DietaryPreferences;

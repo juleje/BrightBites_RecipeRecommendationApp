@@ -141,10 +141,13 @@ The recipes are: {docs_dic_to_string(relevant_docs(string_to_vector(own_query)))
 # print(prompt)
 
 # print(docs_dic_to_json(relevant_docs(string_to_vector(own_query))))
-with open("Backend/data/apikey.txt", "r") as file:
-    api_key = file.read().strip()
 
-os.environ["API_KEY"] = api_key
+# Read the file and set the API key
+with open("Backend/data/apikey.txt", "r") as file:
+    api_key = file.read().strip()  # Read and remove any trailing whitespace
+
+os.environ["API_KEY"] = api_key  # Set API_KEY environment variable
+
 genai.configure(api_key=os.environ["API_KEY"])
 
 genai.configure(api_key=os.environ["API_KEY"])
@@ -192,10 +195,15 @@ def home():
 
 @app.route("/generate", methods=["POST"])
 def generate():
-    if not request.json or "hello" not in request.json:  # body valid
+    if not request.json or "dietary" not in request.json:  # body valid
         print("error invalid data")
         return jsonify({"error": "Invalid data"}), 400
     data = request.json
+    diets_str = ", ".join(data["dietary"])
+    cuisines_str = ", ".join(data["cuisine"])
+    ingredients_str = ", ".join(data["ingredients"])
+    client_query = f"Recipes that follow the diets {diets_str} from the cuisines {cuisines_str} with the ingredients {ingredients_str}"
+    return jsonify(input_query(client_query)), 201
     diets_str = ", ".join(data["dietary"])
     cuisines_str = ", ".join(data["cuisine"])
     ingredients_str = ", ".join(data["ingredients"])

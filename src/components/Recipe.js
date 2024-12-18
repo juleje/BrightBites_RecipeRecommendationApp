@@ -4,7 +4,7 @@ import { useRecipes } from '../hooks/RecipeContext';
 
 function Recipe() {
 	const { index } = useParams();
-	const { recipes } = useRecipes();
+	const { recipes, explenations } = useRecipes();
 
 	const clickedRecipe = recipes[index];
 
@@ -16,7 +16,7 @@ function Recipe() {
 				<h2>{clickedRecipe.Name}</h2>
 
 				{/* Add more recipe details as needed */
-
+					
 				}
 			</div>
 		);
