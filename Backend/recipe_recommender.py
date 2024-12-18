@@ -15,9 +15,9 @@ import joblib
 import json
 import os
 
-#nltk.download("stopwords")
-#nltk.download('punkt_tab')
-#nltk.download('wordnet')
+# nltk.download("stopwords")
+# nltk.download('punkt_tab')
+# nltk.download('wordnet')
 dataset = datasets.load_dataset(
     "parquet", data_files="Backend/data/new_recipes.indexed.parquet")['train']  # requires the parquet file ofc
 
@@ -83,13 +83,14 @@ new_data = dataset.remove_columns(all_columns)
 dataset = dataset.remove_columns("text")
 
 # TF-IDF implementation
-#vectorizer = TfidfVectorizer(tokenizer=preprocess)
+# vectorizer = TfidfVectorizer(tokenizer=preprocess)
 # This function takes around 9 minutes rest of the code is way faster
 # X = vectorizer.fit_transform(new_data['text'])
 # joblib.dump(vectorizer, "vectorizer.joblib")
 # save_npz("tfidf_matrix.npz", X)
-#vectorizer_path = os.path.join(os.path.dirname(__file__), "data/vectorizer.joblib")
-vectorizer = joblib.load(r"C:\Users\jules\Desktop\KUL\FMMI\Backend\data\vectorizer.joblib") #r"C:\Users\jules\Desktop\KUL\FMMI\Backend\data\vectorizer.joblib"
+# vectorizer_path = os.path.join(os.path.dirname(__file__), "data/vectorizer.joblib")
+# r"C:\Users\jules\Desktop\KUL\FMMI\Backend\data\vectorizer.joblib"
+vectorizer = joblib.load("Backend/data/vectorizer.joblib")
 X = load_npz("Backend/data/tfidf_matrix.npz")
 
 
@@ -164,7 +165,8 @@ response = model.generate_content(f"{prompt}")
 
 
 def input_query(query):
-    return docs_dic_to_json(relevant_docs(string_to_vector(query))) #+ "\n" + response.text
+    # + "\n" + response.text
+    return docs_dic_to_json(relevant_docs(string_to_vector(query)))
 
 
-#print(input_query(own_query))
+# print(input_query(own_query))
