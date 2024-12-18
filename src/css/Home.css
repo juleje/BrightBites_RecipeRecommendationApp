@@ -1,69 +1,80 @@
 /* Container */
 .container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 100vh;
-	background-color: #fff;
-	padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url("../img/background.jpg");
+  padding: 20px;
 }
 
 /* Header */
-.header {
-	font-size: 28px;
-	font-weight: bold;
-	color: #0EC704;
-	margin-bottom: 35px;
-	text-shadow: 1px 1px 1px black;
+.home-header {
+  font-size: 60px;
+  font-weight: bold;
+  color: #0ec704;
+  margin-bottom: 35px;
+  text-shadow: 1px 1px 1px black;
 }
 
 /* Striped Box */
 .box {
-	position: relative;
-	width: 80%;
-	height: 250px;
-	border: 2px solid #0EC704;
-	margin-bottom: 20px;
-	overflow: hidden;
-	border-radius: 10px;
+  position: relative;
+  width: 50%;
+  height: 500px;
+  border: 2px solid #0ec704;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #c9e6a4;
 }
-
 
 .healthy-image {
-    width: 100%;
-    max-width: 300px;
-    border-radius: 10px;
-    object-fit: cover;
+  width: 100%;
+  position: absolute;
+  transform: translateX(-50%);
+  top: 20px;
+  left: 50%;
+  max-width: 300px;
+  border-radius: 10px;
+  object-fit: cover;
 }
-
 
 /* Start Button */
 .start-button {
-	position: absolute;
-	bottom: 10px;
-	left: 50%;
-	transform: translateX(-50%);
-	background-color: #FFFFFF;
-	color: #0EC704;
-	font-weight: bold;
-	font-size: 20px;
-	text-shadow: 0.5px 0.5px black;
-	border-color: black;
-	border-width: thin;
-	padding: 10px 45px;
-	border-radius: 10px;
-	cursor: pointer;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  color: #0ec704;
+  font-weight: bold;
+  font-size: 20px;
+  text-shadow: 0.5px 0.5px black;
+  border-color: black;
+  border-width: thin;
+  padding: 10px 45px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .start-button:hover {
-	background-color: #008080;
+  background-color: #008080;
 }
 
 /* Description */
 .description {
-	font-size: 16px;
-	color: #333;
-	text-align: center;
-	max-width: 80%;
+  font-size: 25px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  max-width: 80%;
+}
+
+.home-checkbox-container {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
 }

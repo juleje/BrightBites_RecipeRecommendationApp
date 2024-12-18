@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
-import { Checkbox, FormControlLabel, Button, Typography, Box } from '@mui/material';
-import '../../css/DietaryPreferences.css';
+import React, { useState } from "react";
+import {
+  Checkbox,
+  FormControlLabel,
+  Button,
+  Typography,
+  Box,
+} from "@mui/material";
+import "../../css/DietaryPreferences.css";
 
 const DietaryPreferences = ({ handleToCuisine }) => {
   const [preferences, setPreferences] = useState({
@@ -20,7 +26,7 @@ const DietaryPreferences = ({ handleToCuisine }) => {
 
   return (
     <div className="dietary-container">
-      <Typography variant="h5" className="header">
+      <Typography variant="h5" className="dietary-header">
         Any dietary preferences?
       </Typography>
 
@@ -29,7 +35,7 @@ const DietaryPreferences = ({ handleToCuisine }) => {
           control={
             <Checkbox
               checked={preferences.vegetarian}
-              onChange={() => handleCheckboxChange('vegetarian')}
+              onChange={() => handleCheckboxChange("vegetarian")}
             />
           }
           label="Vegetarian"
@@ -38,7 +44,7 @@ const DietaryPreferences = ({ handleToCuisine }) => {
           control={
             <Checkbox
               checked={preferences.vegan}
-              onChange={() => handleCheckboxChange('vegan')}
+              onChange={() => handleCheckboxChange("vegan")}
             />
           }
           label="Vegan"
@@ -47,7 +53,7 @@ const DietaryPreferences = ({ handleToCuisine }) => {
           control={
             <Checkbox
               checked={preferences.pescatarian}
-              onChange={() => handleCheckboxChange('pescatarian')}
+              onChange={() => handleCheckboxChange("pescatarian")}
             />
           }
           label="Pescatarian"
@@ -56,7 +62,8 @@ const DietaryPreferences = ({ handleToCuisine }) => {
           control={
             <Checkbox
               checked={preferences.kosher}
-              onChange={() => handleCheckboxChange('kosher')} />
+              onChange={() => handleCheckboxChange("kosher")}
+            />
           }
           label="Kosher"
         />
@@ -64,7 +71,8 @@ const DietaryPreferences = ({ handleToCuisine }) => {
           control={
             <Checkbox
               checked={preferences.halal}
-              onChange={() => handleCheckboxChange('halal')} />
+              onChange={() => handleCheckboxChange("halal")}
+            />
           }
           label="Halal"
         />
@@ -72,7 +80,8 @@ const DietaryPreferences = ({ handleToCuisine }) => {
           control={
             <Checkbox
               checked={preferences.dairyfree}
-              onChange={() => handleCheckboxChange('dairyfree')} />
+              onChange={() => handleCheckboxChange("dairyfree")}
+            />
           }
           label="Dairy-free"
         />
@@ -80,7 +89,8 @@ const DietaryPreferences = ({ handleToCuisine }) => {
           control={
             <Checkbox
               checked={preferences.glutenfree}
-              onChange={() => handleCheckboxChange('glutenfree')} />
+              onChange={() => handleCheckboxChange("glutenfree")}
+            />
           }
           label="Gluten-free"
         />
@@ -88,17 +98,28 @@ const DietaryPreferences = ({ handleToCuisine }) => {
           control={
             <Checkbox
               checked={preferences.keto}
-              onChange={() => handleCheckboxChange('keto')} />
+              onChange={() => handleCheckboxChange("keto")}
+            />
           }
           label="Keto"
         />
       </Box>
 
       <Box className="button-container">
-        <Button variant="contained" color="primary" className="prev-btn" onClick={() => console.log('Prev clicked')}>
+        <Button
+          variant="contained"
+          color="primary"
+          className="prev-btn"
+          onClick={() => console.log("Prev clicked")}
+        >
           Previous
         </Button>
-        <Button variant="contained" color="secondary" className="skip-btn" onClick={() => handleToCuisine()}>
+        <Button
+          variant="contained"
+          color="secondary"
+          className="skip-btn"
+          onClick={() => handleToCuisine()}
+        >
           Skip
         </Button>
       </Box>
