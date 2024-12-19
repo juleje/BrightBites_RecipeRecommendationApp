@@ -5,7 +5,7 @@ import '../../css/IngredientSelection.css';
 import SearchIcon from '@mui/icons-material/Search';
 
 
-const IngredientSelection = ({ handleGenerateRecipies, backToCuisine , chosenIngredients, setChosenIngredients}) => {
+const IngredientSelection = ({ handleGenerateRecipies, backToCuisine, chosenIngredients, setChosenIngredients }) => {
 	const [ingredient, setIngredient] = useState('');
 
 	const handleIngredientChange = (e) => {
@@ -37,6 +37,11 @@ const IngredientSelection = ({ handleGenerateRecipies, backToCuisine , chosenIng
 					onChange={handleIngredientChange}
 					variant="outlined"
 					className="ingredient-input"
+					onKeyDown={(e) => {
+						if (e.key === 'Enter') {
+							handleAddIngredient();
+						}
+					}}
 				/>
 				<Button
 					variant="contained"

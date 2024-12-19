@@ -22,7 +22,7 @@ import calories_green from '../img/calorie_green.png'
 import sugar_green from '../img/sugar_green.png'
 import fat_green from '../img/fat_green.png'
 import sodium_green from '../img/sodium_green.png'
-import {Button} from '@mui/material';
+import { Button } from '@mui/material';
 
 
 
@@ -38,21 +38,21 @@ import { Box, Typography, Alert, AlertTitle, Card, CardContent, CardMedia, Grid,
 
 
 function formatDuration(duration) {
-    // Extract hours and minutes using regular expressions
-    const hoursMatch = duration.match(/PT(\d+)H/); // Look for 'PT<number>H'
-    const minutesMatch = duration.match(/(\d+)M/); // Look for '<number>M'
+	// Extract hours and minutes using regular expressions
+	const hoursMatch = duration.match(/PT(\d+)H/); // Look for 'PT<number>H'
+	const minutesMatch = duration.match(/(\d+)M/); // Look for '<number>M'
 
-    const hours = hoursMatch ? parseInt(hoursMatch[1], 10) : 0;
-    const minutes = minutesMatch ? parseInt(minutesMatch[1], 10) : 0;
+	const hours = hoursMatch ? parseInt(hoursMatch[1], 10) : 0;
+	const minutes = minutesMatch ? parseInt(minutesMatch[1], 10) : 0;
 
-    // Format the output as 'h:mm' or '<minutes> min' if no hours
-    if (hours > 0 && minutes > 0) {
-        return `${hours}h ${minutes}min`;
-    } else if (hours > 0) {
-        return `${hours}h`;
-    } else {
-        return `${minutes}min`;
-    }
+	// Format the output as 'h:mm' or '<minutes> min' if no hours
+	if (hours > 0 && minutes > 0) {
+		return `${hours}h ${minutes}min`;
+	} else if (hours > 0) {
+		return `${hours}h`;
+	} else {
+		return `${minutes}min`;
+	}
 }
 
 
@@ -105,7 +105,7 @@ const NutritionInfo = ({ nutrition_icons }) => {
 		}
 	};
 
-	const metricsToValueStrings = { 
+	const metricsToValueStrings = {
 		"calories": `${nutrition_icons.Calories} kcal`,
 		"sugar": `${nutrition_icons.SugarContent} g`,
 		"fat": `${nutrition_icons.FatContent} g`,
@@ -260,11 +260,11 @@ function Recipe() {
 						alt="Logo"
 					/>
 					<Button variant="contained" color="primary" onClick={() => navigate(-1)}>
-					<img
-						src={go_back}
-						alt="Go back button"
-						style={{ width: '50px', height: '50px' }} // Adjust image size
-					/>
+						<img
+							src={go_back}
+							alt="Go back button"
+							style={{ width: '50px', height: '50px' }} // Adjust image size
+						/>
 					</Button>
 				</div>
 				<div class="image-container">
@@ -288,7 +288,7 @@ function Recipe() {
 
 					<div class="health-explanations">
 						<div class="section-title">Health Explanations:</div>
-						<p>{explenations}</p>
+						<p>{JSON.stringify(explenations)}</p>
 					</div>
 					<div class="ingredients">
 						<div class="section-title">Ingredients:</div>
@@ -302,7 +302,7 @@ function Recipe() {
 						<div class="section-title">Ingredients v2:</div>
 						<ul>
 							{ingredientquantities.map((item, index) => (
-								<li key={index}> {item.ingredientquant}</li>
+								<li key={index}>{item}</li>
 							))}
 
 						</ul>

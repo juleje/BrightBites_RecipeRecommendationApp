@@ -23,7 +23,7 @@ export const handlePostRequest = async (setRecipes, setExplenations, dietaryPref
 		const responseread = await response.text()
 		const jsonData = JSON.parse(responseread);
 		const jsonRecipes = JSON.parse(jsonData.recipes);
-		const jsonExplenations = JSON.parse(jsonData.explenations);
+		const jsonExplenations = JSON.parse(jsonData.explanations);
 		localStorage.setItem('recipes', JSON.stringify(jsonRecipes));
 		localStorage.setItem('explenations', JSON.stringify(jsonExplenations));
 		setRecipes(jsonRecipes);
