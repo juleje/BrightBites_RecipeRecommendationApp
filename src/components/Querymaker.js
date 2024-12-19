@@ -5,9 +5,8 @@ import React, { useEffect, useState } from 'react';
 import DietaryPreferences from './queryparts/dietary';
 import CuisinePreferences from './queryparts/cuisine';
 import IngredientSelection from './queryparts/ingridients';
-import { handlePostRequest } from '../services/backendService'
+import {handlePostRequest} from '../services/backendService'
 import { useRecipes } from '../hooks/RecipeContext';
-
 
 function Querymaker() {
 	const navigate = useNavigate();
