@@ -38,7 +38,7 @@ lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
 no_info = set(['need', 'making', 'make', 'cooking', 'take', 'use', 'used', 'recipe',
               'ingredient', 'doe', 'food', 'eaten', 'eat', 'eating',
-              'ingredient', 'doe', 'food', 'eaten', 'eat', 'eating',
+               'ingredient', 'doe', 'food', 'eaten', 'eat', 'eating',
                'course', 'main', 'know', 'friend', 'want', 'like', 'craving', 'please'])
 skip = stop_words.union(no_info)
 
@@ -139,15 +139,6 @@ def docs_dic_to_json(rel_docs):
     return json.dumps(rel_docs, indent=4)
 
 
-own_query = "Chicken pasta pesto tomato onion"
-
-
-prompt = f"""Provide explanations for each recipe focus on how they are healthy. (put these explanations in JSON format!)
-The recipes are: {docs_dic_to_string(relevant_docs(string_to_vector(own_query)))}. Be sure to add the recipe ID's to the JSON file!"""
-# print(prompt)
-
-# print(docs_dic_to_json(relevant_docs(string_to_vector(own_query))))
-
 # Read the file and set the API key
 with open("Backend/data/apikey.txt", "r") as file:
     api_key = file.read().strip()  # Read and remove any trailing whitespace
@@ -158,7 +149,13 @@ genai.configure(api_key=os.environ["API_KEY"])
 
 genai.configure(api_key=os.environ["API_KEY"])
 model = genai.GenerativeModel("gemini-1.5-flash")
-response = model.generate_content(f"{prompt}")
+
+
+def generate_health_explanations(own_query):
+    prompt = f"""Provide explanations for each recipe focus on how they are healthy. (put these explanations in JSON format!)
+    The recipes are: {docs_dic_to_string(relevant_docs(string_to_vector(own_query)))}. Be sure to add the recipe ID's to the JSON file!"""
+    response = model.generate_content(f"{prompt}")
+    return response.text.replace('```json\n', '').replace('\n```', '')
 
 # print(prompt)
 # print(response.text)
@@ -167,7 +164,7 @@ response = model.generate_content(f"{prompt}")
 def input_query(query):
     data_to_return = {
         "recipes": docs_dic_to_json(relevant_docs(string_to_vector(query))),
-        "explanations": response.text.replace('```json\n', '').replace('\n```', '')
+        "explanations": generate_health_explanations(query)
     }
     return data_to_return
 
@@ -193,8 +190,6 @@ tasks = [
 ]
 
 # Home route
-
-
 
 
 @app.route("/", methods=["GET"])
