@@ -206,7 +206,7 @@ function Recipe() {
 		const ingredientquantities = clickedRecipe.ingredients_raw_str
 			? clickedRecipe.ingredients_raw_str
 				.split(",") // split since these are stored in a list
-				.map((ingredientQuant) => ingredientQuant.trim().replace(/^"|"$/g, ""))
+				.map((ingredientquant) => ingredientquant.trim().replace(/^"|"$/g, ""))
 			: [];
 
 		const ingredients = clickedRecipe.RecipeIngredientParts
@@ -296,6 +296,13 @@ function Recipe() {
 									{item.quantity} {item.ingredient}
 								</li>
 							))}
+						</ul>
+						<div class="section-title">Ingredients v2:</div>
+						<ul>
+							{ingredientquantities.map((item, index) => (
+								<li key={index}> {item.ingredientquant}</li>
+							))}
+
 						</ul>
 					</div>
 					<div class="steps">
