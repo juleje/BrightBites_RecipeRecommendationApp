@@ -76,22 +76,34 @@ const NutritionInfo = ({ nutrition_icons }) => {
 	const getIconAndText = (value, metric) => {
 		const { low, medium } = thresholds[metric];
 
+		console.log(metricsToValueStrings[metric]);
+
 		if (value <= low) {
 			return {
 				icon: `${metric}_green`,
-				text: `Low ${metric}`,
+				text: `Low ${metric}: `,
+				number_unit: `${metricsToValueStrings[metric]}`,
 			};
 		} else if (value > low && value <= medium) {
 			return {
 				icon: `${metric}_orange`,
-				text: `Medium ${metric}`,
+				text: `Medium ${metric}: `,
+				number_unit: `${metricsToValueStrings[metric]}`,
 			};
 		} else {
 			return {
 				icon: `${metric}_red`,
-				text: `High ${metric}`,
+				text: `High ${metric}: `,
+				number_unit: `${metricsToValueStrings[metric]}`,
 			};
 		}
+	};
+
+	const metricsToValueStrings = { 
+		"calories": `${nutrition_icons.Calories} kcal`,
+		"sugar": `${nutrition_icons.SugarContent} g`,
+		"fat": `${nutrition_icons.FatContent} g`,
+		"sodium": `${nutrition_icons.SodiumContent} mg`,
 	};
 
 	// Metrics and their corresponding recipe properties
@@ -105,11 +117,12 @@ const NutritionInfo = ({ nutrition_icons }) => {
 	return (
 		<div className="nutrition-info">
 			{metrics.map(({ metric, value }) => {
-				const { icon, text } = getIconAndText(value, metric);
+				const { icon, text, number_unit } = getIconAndText(value, metric);
 				return (
 					<div className="icon-container" key={metric}>
 						<img src={iconMap[icon]} alt={metric} />
-						<p>{text}</p>
+						<p class="description">{text}</p>
+						<p class="number-unit">{number_unit}</p>
 					</div>
 				);
 			})}
@@ -182,7 +195,7 @@ function DisplayImage({ input }) {
 				<img
 					src={imageUrl}
 					alt="First Image"
-					width="200"
+					// width="200"
 				// height="600"
 				/>
 			)}
@@ -256,24 +269,6 @@ function Recipe() {
 					<div>
 						<NutritionInfo nutrition_icons={clickedRecipe} />
 					</div>
-					{/* <div className="nutrition-info">
-						<div className="icon-container">
-							<img src={calories} alt="Calories" />
-							<p>{clickedRecipe.Calories} kcal</p>
-						</div>
-						<div className="icon-container">
-							<img src={sugar} alt="Sugar" />
-							<p>{clickedRecipe.SugarContent}g sugar</p>
-						</div>
-						<div className="icon-container">
-							<img src={fat} alt="Fat" />
-							<p>{clickedRecipe.FatContent}g fat</p>
-						</div>
-						<div className="icon-container">
-							<img src={sodium} alt="Sodium" />
-							<p>{clickedRecipe.SodiumContent}mg sodium</p>
-						</div>
-					</div> */}
 					<div class="motivation">
 						<div class="section-title">Motivation:</div>
 						<p>{getRandomMotivation(clickedRecipe.Calories)}</p>

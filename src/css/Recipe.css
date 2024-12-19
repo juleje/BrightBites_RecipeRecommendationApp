@@ -25,9 +25,11 @@ body {
 }
 
 .image-container {
-    position:absolute;
+    position: absolute;
     top: 60px;
-    height: 200px;
+    width: auto;
+    height: auto;
+    /* height: 200px; */
 }
 
 .image-container img {
@@ -49,8 +51,10 @@ body {
 .content {
     width: 95%; 
     padding: 10px;
-    margin-top: 600px; 
-    overflow: hidden; 
+    margin-top: auto; 
+    /* overflow: hidden;  */
+    align-items: center;
+    overflow-y: scroll;
 }
 
 .recipe-name {
@@ -78,23 +82,35 @@ body {
 .nutrition-info {
     display: flex; /* Set the container to be a flex container */
     justify-content: space-around; /* Space the items evenly */
-    align-items: center; /* Align items vertically in the center */
-    gap: 20px; /* Add some space between each icon-container */
+    align-items: flex-start; /* Align icons at the top (same height) */
+    gap: 20px; 
 } 
   
 .icon-container {
     display: flex;
-    flex-direction: column; /* Stack the icon and text vertically */
-    align-items: center; /* Center the icon and text */
+    flex-direction: column;
+    align-items: center; 
 }
   
 .icon-container img {
-    width: 40px; /* Adjust the size of the icons */
-    height: 50px; /* Adjust the size of the icons */
+    width: 40px; 
+    height: 50px; 
 }
   
 .icon-container p {
-    margin-top: 0px; /* Add some space between the icon and text */
+    margin-top: 5px; 
     text-align: center;
+    white-space: nowrap;
 }
-  
+
+.icon-container .description {
+    text-align: center;
+    margin-top: 5px; /* Add some spacing between the icon and the description */
+}
+
+.icon-container .number-unit {
+    white-space: nowrap; /* Ensure the number and unit stay on the same line */
+    text-align: center;
+    margin-top: 0px; /* Add slight spacing above */
+}
+
