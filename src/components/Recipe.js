@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecipes } from '../hooks/RecipeContext';
 import '../css/Recipe.css';
-import logo from '../img/logo.svg';
+import logo from '../img/minimalist-logo-trimmed.jpg';
 import go_back from '../img/go_back.png'
 import star0 from '../img/0stars.png'
 import star1 from '../img/1star.png'
@@ -255,7 +255,7 @@ function Recipe() {
 					{/* Logo in top right */}
 					<img
 						onClick={() => navigate("/")}
-						className="logo"
+						className="logoRecipe"
 						src={logo}
 						alt="Logo"
 					/>
@@ -288,12 +288,7 @@ function Recipe() {
 
 					<div class="health-explanations">
 						<div class="section-title">Health Explanations:</div>
-						{/* <ul>
-							<li>Calorie amount: {clickedRecipe.Calories} kcal</li>
-							<li>Sugar amount: {clickedRecipe.SugarContent} g</li>
-							<li>Fat amount: {clickedRecipe.FatContent} g</li>
-							<li>Sodium amount: {clickedRecipe.SodiumContent} mg</li>
-						</ul> */}
+						<p>{explenations}</p>
 					</div>
 					<div class="ingredients">
 						<div class="section-title">Ingredients:</div>

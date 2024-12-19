@@ -54,7 +54,7 @@ const CuisinePreferences = ({ handleToIngrdidients, backToDietary, cuisinePrefer
 
   return (
     <div className="dietary-container">
-      <Typography variant="h5" className="dietary-header">
+      <Typography variant="h5" className="header">
         Any prefered cuisine?
       </Typography>
 
@@ -75,7 +75,7 @@ const CuisinePreferences = ({ handleToIngrdidients, backToDietary, cuisinePrefer
 
 			<Box className="button-container">
 				<Button variant="contained" color="primary" className="prev-btn" onClick={() => backToDietary()}>
-					Previous
+					Back
 				</Button>
 				<Button variant="contained" color="secondary" className="skip-btn" onClick={() => handleToIngrdidients()}>
 					{btnState}

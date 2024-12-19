@@ -20,7 +20,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    /* height: 30px; */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -48,17 +48,13 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
 }
 
-.logo {
-    right: 0%;
-    top: -5%;
-	/* position: absolute;
-	top: -5%;
-	right: 1%;
-	border-radius: 4px;
-	width: 8%;
-	min-width: 80px;
-	height: 8%;
-	min-height: 80px; */
+.logoRecipe {
+	display: flex;
+    position: fixed;
+    right: 3%;
+    border-radius:50%;
+    height: 60px;
+    top: 0.6%;
 }
 
 .content {
@@ -118,6 +114,8 @@
 .icon-container .description {
     text-align: center;
     margin-top: 5px; /* Add some spacing between the icon and the description */
+    font-size: 16px;
+    font-weight: normal;
 }
 
 .icon-container .number-unit {

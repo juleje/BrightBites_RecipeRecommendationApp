@@ -67,7 +67,7 @@ const DietaryPreferences = ({ handleToCuisine, backToHome, dietaryPreferences, s
 
 			<Box className="button-container">
 				<Button variant="contained" color="primary" className="prev-btn" onClick={() => backToHome()}>
-					Previous
+					Back
 				</Button>
 				<Button variant="contained" color="secondary" className="skip-btn" onClick={() => handleToCuisine()}>
 					{btnState}

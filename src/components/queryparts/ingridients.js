@@ -71,7 +71,7 @@ const IngredientSelection = ({ handleGenerateRecipies, backToCuisine , chosenIng
 
 			<Box className="button-container">
 				<Button variant="contained" color="secondary" className="prev-btn" onClick={() => backToCuisine()}>
-					Previous
+					Back
 				</Button>
 				<Button variant="contained" color="primary" className="find-btn" endIcon={<SearchIcon />} onClick={() => handleGenerateRecipies()}>
 					Find
