@@ -35,18 +35,24 @@ import { Box, Typography, Alert, AlertTitle, Card, CardContent, CardMedia, Grid,
 
 
 
-// Function to convert ISO 8601 duration format to h:mm format
 function formatDuration(duration) {
-	// Extract hours and minutes using regular expressions
-	const hoursMatch = duration.match(/(\d+)H/);
-	const minutesMatch = duration.match(/(\d+)M/);
+    // Extract hours and minutes using regular expressions
+    const hoursMatch = duration.match(/PT(\d+)H/); // Look for 'PT<number>H'
+    const minutesMatch = duration.match(/(\d+)M/); // Look for '<number>M'
 
-	const hours = hoursMatch ? parseInt(hoursMatch[1], 10) : 0;
-	const minutes = minutesMatch ? parseInt(minutesMatch[1], 10) : 0;
+    const hours = hoursMatch ? parseInt(hoursMatch[1], 10) : 0;
+    const minutes = minutesMatch ? parseInt(minutesMatch[1], 10) : 0;
 
-	// Format the output as 'h:mm'
-	return `${hours > 0 ? hours + 'h' : ''}${minutes < 10 && hours > 0 ? '0' : ''}${minutes}`;
+    // Format the output as 'h:mm' or '<minutes> min' if no hours
+    if (hours > 0 && minutes > 0) {
+        return `${hours}h ${minutes}min`;
+    } else if (hours > 0) {
+        return `${hours}h`;
+    } else {
+        return `${minutes}min`;
+    }
 }
+
 
 const NutritionInfo = ({ nutrition_icons }) => {
 
@@ -75,8 +81,6 @@ const NutritionInfo = ({ nutrition_icons }) => {
 	// Define a utility function to determine icon and text based on thresholds
 	const getIconAndText = (value, metric) => {
 		const { low, medium } = thresholds[metric];
-
-		console.log(metricsToValueStrings[metric]);
 
 		if (value <= low) {
 			return {
@@ -159,16 +163,16 @@ const RatingImage = ({ rating }) => {
 
 const getRandomMotivation = (calories) => {
 	const motivations = [
-		`This meal equals ${Math.round(calories / 250)} of your favorite chocolate bars!`,
-		`If you raise your fork ${Math.round(calories / 0.5)} of times you've burned as much calories as the meal equals!`,
-		`While dancing during a night out, this meal equals ${Math.round(calories / 300)} hours of dancing!`,
-		`This meal is equivalent to ${Math.round(calories / 150)} salads!`,
-		`If you have sex for ${Math.round(calories / 100)} times, this meal is fully gone!`,
-		`It’s like ${Math.round(calories / 250)} games of intense beach volleyball!`,
-		`If you climb ${Math.round(calories / 10)} flights of stairs, this meal is balanced out!`,
-		`This is equal to ${Math.round(calories / 50)} hours of binge-watching TV while fidgeting!`,
-		`This meal equals ${Math.round(calories / 10)} minutes of running away from zombies!`,
-		`You could garden for ${Math.round(calories / 200)} hours to cancel out this meal!`
+		`This meal equals ${Math.ceil(calories / 250)} of your favorite chocolate bars!`,
+		`If you raise your fork ${Math.ceil(calories / 0.5)} of times you've burned as much calories as the meal equals!`,
+		`While dancing during a night out, this meal equals ${Math.ceil(calories / 300)} hours of dancing!`,
+		`This meal is equivalent to ${Math.ceil(calories / 150)} salads!`,
+		`If you have sex for ${Math.ceil(calories / 100)} times, this meal is fully gone!`,
+		`It’s like ${Math.ceil(calories / 250)} games of intense beach volleyball!`,
+		`If you climb ${Math.ceil(calories / 10)} flights of stairs, this meal is balanced out!`,
+		`This is equal to ${Math.ceil(calories / 50)} hours of binge-watching TV while fidgeting!`,
+		`This meal equals ${Math.ceil(calories / 10)} minutes of running away from zombies!`,
+		`You could garden for ${Math.ceil(calories / 200)} hours to cancel out this meal!`
 	];
 
 	const randomIndex = Math.floor(Math.random() * motivations.length);
@@ -195,8 +199,6 @@ function DisplayImage({ input }) {
 				<img
 					src={imageUrl}
 					alt="First Image"
-					// width="200"
-				// height="600"
 				/>
 			)}
 		</div>
@@ -276,12 +278,12 @@ function Recipe() {
 
 					<div class="health-explanations">
 						<div class="section-title">Health Explanations:</div>
-						<ul>
+						{/* <ul>
 							<li>Calorie amount: {clickedRecipe.Calories} kcal</li>
 							<li>Sugar amount: {clickedRecipe.SugarContent} g</li>
 							<li>Fat amount: {clickedRecipe.FatContent} g</li>
 							<li>Sodium amount: {clickedRecipe.SodiumContent} mg</li>
-						</ul>
+						</ul> */}
 					</div>
 					<div class="ingredients">
 						<div class="section-title">Ingredients:</div>
