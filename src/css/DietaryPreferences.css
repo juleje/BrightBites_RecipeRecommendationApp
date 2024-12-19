@@ -4,9 +4,8 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 100vh;
-	padding: 20px;
 	background-color: #ffffff;
+	padding: 100px 30px 20px 30px;
   }
   
   /* Header Styling */
