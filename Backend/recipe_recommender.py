@@ -118,7 +118,8 @@ def docs_dic_to_string(rel_docs):
         recipes += f"Id: {rel_docs[l]['RecipeId']}\n"
         recipes += f"Name: {rel_docs[l]['Name']}\n"
         recipes += f"Ingredients: {rel_docs[l]['RecipeIngredientParts']+rel_docs[l]['RecipeIngredientQuantities']}\n"
-        recipes += f"Steps: {rel_docs[l]['RecipeInstructions']}\n"
+        recipes += f"-*
+        : {rel_docs[l]['RecipeInstructions']}\n"
         recipes += f"Keywords: {rel_docs[l]['Keywords']}\n"
         recipes += f"Calories: {rel_docs[l]['Calories']}\n"
         recipes += f"Total fat: {rel_docs[l]['FatContent']}\n"

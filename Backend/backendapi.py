@@ -20,12 +20,17 @@ import json
 import os
 
 # from recipe_recommender import input_query
+# from recipe_recommender import input_query
 
 
 # nltk.download("stopwords")
 # nltk.download('punkt_tab')
 # nltk.download('wordnet')
+# nltk.download("stopwords")
+# nltk.download('punkt_tab')
+# nltk.download('wordnet')
 dataset = datasets.load_dataset(
+    "parquet", data_files="Backend/data/big_recipes.indexed.parquet")['train']  # requires the parquet file ofc
     "parquet", data_files="Backend/data/big_recipes.indexed.parquet")['train']  # requires the parquet file ofc
 
 # Preprocessing function
@@ -33,6 +38,7 @@ digits = re.compile(r'\d')
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
 no_info = set(['need', 'making', 'make', 'cooking', 'take', 'use', 'used', 'recipe',
+              'ingredient', 'doe', 'food', 'eaten', 'eat', 'eating',
               'ingredient', 'doe', 'food', 'eaten', 'eat', 'eating',
                'course', 'main', 'know', 'friend', 'want', 'like', 'craving', 'please'])
 skip = stop_words.union(no_info)
@@ -58,10 +64,20 @@ def preprocess(doc):
        'RecipeServings', 'RecipeYield', 'RecipeInstructions', 'name',
        'description', 'ingredients', 'ingredients_raw_str', 'serving_size',
        'servings', 'steps', 'tags', 'search_terms']
+['RecipeId', 'Name', 'AuthorId', 'AuthorName', 'CookTime', 'PrepTime',
+       'TotalTime', 'DatePublished', 'Description', 'Images', 'RecipeCategory',
+       'Keywords', 'RecipeIngredientQuantities', 'RecipeIngredientParts',
+       'AggregatedRating', 'ReviewCount', 'Calories', 'FatContent',
+       'SaturatedFatContent', 'CholesterolContent', 'SodiumContent',
+       'CarbohydrateContent', 'FiberContent', 'SugarContent', 'ProteinContent',
+       'RecipeServings', 'RecipeYield', 'RecipeInstructions', 'name',
+       'description', 'ingredients', 'ingredients_raw_str', 'serving_size',
+       'servings', 'steps', 'tags', 'search_terms']
  """
 
 
 all_columns = ["Name", "RecipeIngredientParts",
+               "RecipeInstructions", "Keywords", "search_terms"]
                "RecipeInstructions", "Keywords", "search_terms"]
 dataset = dataset.map(lambda x: {"text": " ".join(
     [str(x[col]) for col in all_columns])})
@@ -70,6 +86,7 @@ new_data = dataset.remove_columns(all_columns)
 dataset = dataset.remove_columns("text")
 
 # TF-IDF implementation
+# vectorizer = TfidfVectorizer(tokenizer=preprocess)
 # vectorizer = TfidfVectorizer(tokenizer=preprocess)
 # This function takes around 9 minutes rest of the code is way faster
 # X = vectorizer.fit_transform(new_data['text'])
@@ -106,6 +123,7 @@ def docs_dic_to_string(rel_docs):
         recipes += f"Name: {rel_docs[l]['Name']}\n"
         recipes += f"Ingredients: {rel_docs[l]['RecipeIngredientParts']+rel_docs[l]['RecipeIngredientQuantities']}\n"
         recipes += f"Ingredients quantities: {rel_docs[l]['ingredients_raw_str']}\n"
+        recipes += f"Ingredients quantities: {rel_docs[l]['ingredients_raw_str']}\n"
         recipes += f"Steps: {rel_docs[l]['RecipeInstructions']}\n"
         recipes += f"Keywords: {rel_docs[l]['Keywords']}\n"
         recipes += f"Calories: {rel_docs[l]['Calories']}\n"
@@ -119,6 +137,7 @@ def doc_to_string(doc):
     ret += f"Id: {doc['RecipeId']}\n"
     ret += f"Name: {doc['Name']}\n"
     ret += f"Ingredients: {doc['RecipeIngredientParts'] + doc['RecipeIngredientQuantities']}\n"
+    ret += f"Ingredients quantities: {doc['ingredients_raw_str']}\n"
     ret += f"Ingredients quantities: {doc['ingredients_raw_str']}\n"
     ret += f"Steps: {doc['RecipeInstructions']}\n"
     ret += f"Keywords: {doc['Keywords']}\n"
@@ -167,6 +186,7 @@ def input_query(query):
 
 
 # print(input_query(own_query))
+# print(input_query(own_query))
 
 ##############################################################################################################
 ##############################################################################################################
@@ -177,13 +197,18 @@ def input_query(query):
 app = Flask(__name__)
 # Prod: CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 CORS(app)
+# Prod: CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app)
 
 # Example data
 tasks = [
     {"hello": "world"}
+    {"hello": "world"}
 ]
 
 # Home route
+
+
 
 
 @app.route("/", methods=["GET"])
@@ -191,6 +216,8 @@ def home():
     return jsonify(tasks)
 
 # Generate recipes
+
+
 
 
 @app.route("/generate", methods=["POST"])
@@ -209,6 +236,7 @@ def generate():
     ingredients_str = ", ".join(data["ingredients"])
     client_query = f"Recipes that follow the diets {diets_str} from the cuisines {cuisines_str} with the ingredients {ingredients_str}"
     return jsonify(input_query(client_query)), 201
+
 
 
 if __name__ == "__main__":
