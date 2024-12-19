@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useRecipes } from '../hooks/RecipeContext';
 import '../css/Recipe.css';
 import logo from '../img/logo.svg';
+import go_back from '../img/go_back.png'
 import star0 from '../img/0stars.png'
 import star1 from '../img/1star.png'
 import star2 from '../img/2stars.png'
@@ -21,6 +22,7 @@ import calories_green from '../img/calorie_green.png'
 import sugar_green from '../img/sugar_green.png'
 import fat_green from '../img/fat_green.png'
 import sodium_green from '../img/sodium_green.png'
+import {Button} from '@mui/material';
 
 
 
@@ -256,6 +258,13 @@ function Recipe() {
 						src={logo}
 						alt="Logo"
 					/>
+					<Button variant="contained" color="primary" onClick={() => navigate(-1)}>
+					<img
+						src={go_back}
+						alt="Go back button"
+						style={{ width: '50px', height: '50px' }} // Adjust image size
+					/>
+					</Button>
 				</div>
 				<div class="image-container">
 					<DisplayImage input={clickedRecipe.Images} />

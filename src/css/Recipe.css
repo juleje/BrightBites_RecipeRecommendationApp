@@ -39,15 +39,26 @@
     height: auto;
 }
 
+.header button{
+    display: flex;
+    position: fixed;
+    left: -0.2%;
+    top: 0.7%;
+    background-color: #0b7b05;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
+}
+
 .logo {
-	position: absolute;
-	top: -10%;
+    right: 0%;
+    top: -5%;
+	/* position: absolute;
+	top: -5%;
 	right: 1%;
 	border-radius: 4px;
 	width: 8%;
 	min-width: 80px;
 	height: 8%;
-	min-height: 80px;
+	min-height: 80px; */
 }
 
 .content {
