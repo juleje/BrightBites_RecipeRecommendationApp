@@ -31,7 +31,6 @@ import os
 # nltk.download('wordnet')
 dataset = datasets.load_dataset(
     "parquet", data_files="Backend/data/big_recipes.indexed.parquet")['train']  # requires the parquet file ofc
-    "parquet", data_files="Backend/data/big_recipes.indexed.parquet")['train']  # requires the parquet file ofc
 
 # Preprocessing function
 digits = re.compile(r'\d')
@@ -64,20 +63,10 @@ def preprocess(doc):
        'RecipeServings', 'RecipeYield', 'RecipeInstructions', 'name',
        'description', 'ingredients', 'ingredients_raw_str', 'serving_size',
        'servings', 'steps', 'tags', 'search_terms']
-['RecipeId', 'Name', 'AuthorId', 'AuthorName', 'CookTime', 'PrepTime',
-       'TotalTime', 'DatePublished', 'Description', 'Images', 'RecipeCategory',
-       'Keywords', 'RecipeIngredientQuantities', 'RecipeIngredientParts',
-       'AggregatedRating', 'ReviewCount', 'Calories', 'FatContent',
-       'SaturatedFatContent', 'CholesterolContent', 'SodiumContent',
-       'CarbohydrateContent', 'FiberContent', 'SugarContent', 'ProteinContent',
-       'RecipeServings', 'RecipeYield', 'RecipeInstructions', 'name',
-       'description', 'ingredients', 'ingredients_raw_str', 'serving_size',
-       'servings', 'steps', 'tags', 'search_terms']
  """
 
 
 all_columns = ["Name", "RecipeIngredientParts",
-               "RecipeInstructions", "Keywords", "search_terms"]
                "RecipeInstructions", "Keywords", "search_terms"]
 dataset = dataset.map(lambda x: {"text": " ".join(
     [str(x[col]) for col in all_columns])})
@@ -123,7 +112,6 @@ def docs_dic_to_string(rel_docs):
         recipes += f"Name: {rel_docs[l]['Name']}\n"
         recipes += f"Ingredients: {rel_docs[l]['RecipeIngredientParts']+rel_docs[l]['RecipeIngredientQuantities']}\n"
         recipes += f"Ingredients quantities: {rel_docs[l]['ingredients_raw_str']}\n"
-        recipes += f"Ingredients quantities: {rel_docs[l]['ingredients_raw_str']}\n"
         recipes += f"Steps: {rel_docs[l]['RecipeInstructions']}\n"
         recipes += f"Keywords: {rel_docs[l]['Keywords']}\n"
         recipes += f"Calories: {rel_docs[l]['Calories']}\n"
@@ -137,7 +125,6 @@ def doc_to_string(doc):
     ret += f"Id: {doc['RecipeId']}\n"
     ret += f"Name: {doc['Name']}\n"
     ret += f"Ingredients: {doc['RecipeIngredientParts'] + doc['RecipeIngredientQuantities']}\n"
-    ret += f"Ingredients quantities: {doc['ingredients_raw_str']}\n"
     ret += f"Ingredients quantities: {doc['ingredients_raw_str']}\n"
     ret += f"Steps: {doc['RecipeInstructions']}\n"
     ret += f"Keywords: {doc['Keywords']}\n"
@@ -203,7 +190,6 @@ CORS(app)
 # Example data
 tasks = [
     {"hello": "world"}
-    {"hello": "world"}
 ]
 
 # Home route
@@ -218,8 +204,6 @@ def home():
 # Generate recipes
 
 
-
-
 @app.route("/generate", methods=["POST"])
 def generate():
     if not request.json or "dietary" not in request.json:  # body valid
@@ -231,12 +215,6 @@ def generate():
     ingredients_str = ", ".join(data["ingredients"])
     client_query = f"Recipes that follow the diets {diets_str} from the cuisines {cuisines_str} with the ingredients {ingredients_str}"
     return jsonify(input_query(client_query)), 201
-    diets_str = ", ".join(data["dietary"])
-    cuisines_str = ", ".join(data["cuisine"])
-    ingredients_str = ", ".join(data["ingredients"])
-    client_query = f"Recipes that follow the diets {diets_str} from the cuisines {cuisines_str} with the ingredients {ingredients_str}"
-    return jsonify(input_query(client_query)), 201
-
 
 
 if __name__ == "__main__":
