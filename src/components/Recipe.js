@@ -37,15 +37,15 @@ import { Box, Typography, Alert, AlertTitle, Card, CardContent, CardMedia, Grid,
 
 // Function to convert ISO 8601 duration format to h:mm format
 function formatDuration(duration) {
-    // Extract hours and minutes using regular expressions
-    const hoursMatch = duration.match(/(\d+)H/);
-    const minutesMatch = duration.match(/(\d+)M/);
+	// Extract hours and minutes using regular expressions
+	const hoursMatch = duration.match(/(\d+)H/);
+	const minutesMatch = duration.match(/(\d+)M/);
 
-    const hours = hoursMatch ? parseInt(hoursMatch[1], 10) : 0;
-    const minutes = minutesMatch ? parseInt(minutesMatch[1], 10) : 0;
+	const hours = hoursMatch ? parseInt(hoursMatch[1], 10) : 0;
+	const minutes = minutesMatch ? parseInt(minutesMatch[1], 10) : 0;
 
-    // Format the output as 'h:mm'
-    return `${hours > 0 ? hours + 'h' : ''}${minutes < 10 && hours > 0 ? '0' : ''}${minutes}`;
+	// Format the output as 'h:mm'
+	return `${hours > 0 ? hours + 'h' : ''}${minutes < 10 && hours > 0 ? '0' : ''}${minutes}`;
 }
 
 const NutritionInfo = ({ nutrition_icons }) => {
@@ -70,103 +70,122 @@ const NutritionInfo = ({ nutrition_icons }) => {
 		sodium_green: sodium_green,
 		sodium_orange: sodium_orange,
 		sodium_red: sodium_red,
-	  };
+	};
 
 	// Define a utility function to determine icon and text based on thresholds
 	const getIconAndText = (value, metric) => {
-	  const { low, medium } = thresholds[metric];
-  
-	  if (value <= low) {
-		return {
-		  icon: `${metric}_green`,
-		  text: `Low ${metric}`,
-		};
-	  } else if (value > low && value <= medium) {
-		return {
-		  icon: `${metric}_orange`,
-		  text: `Medium ${metric}`,
-		};
-	  } else {
-		return {
-		  icon: `${metric}_red`,
-		  text: `High ${metric}`,
-		};
-	  }
+		const { low, medium } = thresholds[metric];
+
+		if (value <= low) {
+			return {
+				icon: `${metric}_green`,
+				text: `Low ${metric}`,
+			};
+		} else if (value > low && value <= medium) {
+			return {
+				icon: `${metric}_orange`,
+				text: `Medium ${metric}`,
+			};
+		} else {
+			return {
+				icon: `${metric}_red`,
+				text: `High ${metric}`,
+			};
+		}
 	};
 
-	  // Metrics and their corresponding recipe properties
+	// Metrics and their corresponding recipe properties
 	const metrics = [
-	{ metric: "calories", value: nutrition_icons.Calories },
-	{ metric: "sugar", value: nutrition_icons.SugarContent },
-	{ metric: "fat", value: nutrition_icons.FatContent },
-	{ metric: "sodium", value: nutrition_icons.SodiumContent },
+		{ metric: "calories", value: nutrition_icons.Calories },
+		{ metric: "sugar", value: nutrition_icons.SugarContent },
+		{ metric: "fat", value: nutrition_icons.FatContent },
+		{ metric: "sodium", value: nutrition_icons.SodiumContent },
 	];
 
 	return (
-	<div className="nutrition-info">
-		{metrics.map(({ metric, value }) => {
-		const { icon, text } = getIconAndText(value, metric);
-		return (
-			<div className="icon-container" key={metric}>
-				<img src={iconMap[icon]} alt={metric}/>
-				<p>{text}</p>
-			</div>
-		);
-		})}
-	</div>
+		<div className="nutrition-info">
+			{metrics.map(({ metric, value }) => {
+				const { icon, text } = getIconAndText(value, metric);
+				return (
+					<div className="icon-container" key={metric}>
+						<img src={iconMap[icon]} alt={metric} />
+						<p>{text}</p>
+					</div>
+				);
+			})}
+		</div>
 	);
 };
 
 // Map rating values to corresponding images
 const starRatingMap = {
-    0: star0,
-    1: star1,
-    2: star2,
-    3: star3,
-    4: star4,
-    5: star5,
+	0: star0,
+	1: star1,
+	2: star2,
+	3: star3,
+	4: star4,
+	5: star5,
 };
 
 // Create a React component that displays the image based on the rating
 const RatingImage = ({ rating }) => {
-    // Ensure the rating is a valid number between 0 and 5
-    const normalizedRating = Math.max(0, Math.min(5, Math.floor(rating)));
+	// Ensure the rating is a valid number between 0 and 5
+	const normalizedRating = Math.max(0, Math.min(5, Math.floor(rating)));
 
-    return (
-        <div>
-            <img 
-				src={starRatingMap[normalizedRating]} 
-				alt={`Rating ${normalizedRating}`} 
-				width="140" 
+	return (
+		<div>
+			<img
+				src={starRatingMap[normalizedRating]}
+				alt={`Rating ${normalizedRating}`}
+				width="140"
 				height="30"
-				/>
-        </div>
-    );
+			/>
+		</div>
+	);
 };
 
-function DisplayImage({input}) {
+const getRandomMotivation = (calories) => {
+	const motivations = [
+		`This meal equals ${Math.round(calories / 250)} of your favorite chocolate bars!`,
+		`If you raise your fork ${Math.round(calories / 0.5)} of times you've burned as much calories as the meal equals!`,
+		`While dancing during a night out, this meal equals ${Math.round(calories / 300)} hours of dancing!`,
+		`This meal is equivalent to ${Math.round(calories / 150)} salads!`,
+		`If you have sex for ${Math.round(calories / 100)} times, this meal is fully gone!`,
+		`It’s like ${Math.round(calories / 250)} games of intense beach volleyball!`,
+		`If you climb ${Math.round(calories / 10)} flights of stairs, this meal is balanced out!`,
+		`This is equal to ${Math.round(calories / 50)} hours of binge-watching TV while fidgeting!`,
+		`This meal equals ${Math.round(calories / 10)} minutes of running away from zombies!`,
+		`You could garden for ${Math.round(calories / 200)} hours to cancel out this meal!`
+	];
+
+	const randomIndex = Math.floor(Math.random() * motivations.length);
+	return motivations[randomIndex];
+};
+
+
+function DisplayImage({ input }) {
 	// State to store the image URL
 	const [imageUrl, setImageUrl] = useState('');
-  
+
 	useEffect(() => {
-	  // Clean the input string, split by commas and remove the quotes
-	  const urlArray = input.split('", "').map(url => url.replace(/"/g, ''));
-  
-	  // Set the first URL in the state
-	  setImageUrl(urlArray[0]);
+		// Clean the input string, split by commas and remove the quotes
+		const urlArray = input.split('", "').map(url => url.replace(/"/g, ''));
+
+		// Set the first URL in the state
+		setImageUrl(urlArray[0]);
 	}, [input]); // Only run when the input changes
-  
+
 	return (
-	
+
 		<div>
-		{imageUrl && (
-			<img 
-				src={imageUrl} 
-				alt="First Image"
-				width="200"
+			{imageUrl && (
+				<img
+					src={imageUrl}
+					alt="First Image"
+					width="200"
 				// height="600"
 				/>
-		)}
+			)}
 		</div>
 	);
 }
@@ -183,32 +202,39 @@ function Recipe() {
 		return <div>Recipe not found</div>;
 	} else {
 
+
+		const ingredientquantities = clickedRecipe.ingredients_raw_str
+			? clickedRecipe.ingredients_raw_str
+				.split(",") // split since these are stored in a list
+				.map((ingredientQuant) => ingredientQuant.trim().replace(/^"|"$/g, ""))
+			: [];
+
 		const ingredients = clickedRecipe.RecipeIngredientParts
-		? clickedRecipe.RecipeIngredientParts
-			.split(",") // Split the string by commas
-			.map((ingredient) => ingredient.trim().replace(/^"|"$/g, "")) // Remove quotes and trim spaces
-		: [];
+			? clickedRecipe.RecipeIngredientParts
+				.split(",") // Split the string by commas
+				.map((ingredient) => ingredient.trim().replace(/^"|"$/g, "")) // Remove quotes and trim spaces
+			: [];
 		const quantities = clickedRecipe.RecipeIngredientQuantities
-		? clickedRecipe.RecipeIngredientQuantities
-			.split(",") // Split the string by commas
-			.map((quantity) => quantity.trim().replace(/^"|"$/g, "")) // Remove quotes and trim spaces
-		: [];
+			? clickedRecipe.RecipeIngredientQuantities
+				.split(",") // Split the string by commas
+				.map((quantity) => quantity.trim().replace(/^"|"$/g, "")) // Remove quotes and trim spaces
+			: [];
 
 		const combined = ingredients.map((ingredient, index) => ({
 			ingredient: ingredient,
 			quantity: quantities[index],
-		  }));
+		}));
 
 		const steps = clickedRecipe.RecipeInstructions
-		? clickedRecipe.RecipeInstructions
-			.split(",") // Split the string by commas
-			.map((step) => step.trim().replace(/^"|"$/g, "")) // Remove quotes and trim spaces
-		: [];
-  
+			? clickedRecipe.RecipeInstructions
+				.split(",") // Split the string by commas
+				.map((step) => step.trim().replace(/^"|"$/g, "")) // Remove quotes and trim spaces
+			: [];
+
 		return (
 			<div class="recipe-card">
 				<div class="header">BRIGHT BITES
-				{/* Logo in top right */}
+					{/* Logo in top right */}
 					<img
 						onClick={() => navigate("/")}
 						className="logo"
@@ -248,11 +274,11 @@ function Recipe() {
 							<p>{clickedRecipe.SodiumContent}mg sodium</p>
 						</div>
 					</div> */}
-
 					<div class="motivation">
 						<div class="section-title">Motivation:</div>
-						<p> - Calorie amount: To burn this amount of calories, you need to climb 300 stairs</p>
+						<p>{getRandomMotivation(clickedRecipe.Calories)}</p>
 					</div>
+
 					<div class="health-explanations">
 						<div class="section-title">Health Explanations:</div>
 						<ul>

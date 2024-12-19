@@ -18,21 +18,21 @@ import joblib
 import json
 import os
 
-#from recipe_recommender import input_query
+# from recipe_recommender import input_query
 
 
 # nltk.download("stopwords")
 # nltk.download('punkt_tab')
 # nltk.download('wordnet')
 dataset = datasets.load_dataset(
-    "parquet", data_files="Backend/data/new_recipes.indexed.parquet")['train']  # requires the parquet file ofc
+    "parquet", data_files="Backend/data/big_recipes.indexed.parquet")['train']  # requires the parquet file ofc
 
 # Preprocessing function
 digits = re.compile(r'\d')
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
 no_info = set(['need', 'making', 'make', 'cooking', 'take', 'use', 'used', 'recipe',
-              'ingredient', 'doe', 'food', 'bake', 'baking', 'eaten', 'eat', 'eating',
+              'ingredient', 'doe', 'food', 'eaten', 'eat', 'eating',
                'course', 'main', 'know', 'friend', 'want', 'like', 'craving', 'please'])
 skip = stop_words.union(no_info)
 
@@ -48,40 +48,20 @@ def preprocess(doc):
 
 
 """
-['RecipeId',
- 'Name',
- 'AuthorId',
- 'AuthorName',
- 'CookTime',
- 'PrepTime',
- 'TotalTime',
- 'DatePublished',
- 'Description',
- 'Images',
- 'RecipeCategory',
- 'Keywords',
- 'RecipeIngredientQuantities',
- 'RecipeIngredientParts',
- 'AggregatedRating',
- 'ReviewCount',
- 'Calories',
- 'FatContent',
- 'SaturatedFatContent',
- 'CholesterolContent',
- 'SodiumContent',
- 'CarbohydrateContent',
- 'FiberContent',
- 'SugarContent',
- 'ProteinContent',
- 'RecipeServings',
- 'RecipeYield',
- 'RecipeInstructions',
- '__index_level_0__']
+['RecipeId', 'Name', 'AuthorId', 'AuthorName', 'CookTime', 'PrepTime',
+       'TotalTime', 'DatePublished', 'Description', 'Images', 'RecipeCategory',
+       'Keywords', 'RecipeIngredientQuantities', 'RecipeIngredientParts',
+       'AggregatedRating', 'ReviewCount', 'Calories', 'FatContent',
+       'SaturatedFatContent', 'CholesterolContent', 'SodiumContent',
+       'CarbohydrateContent', 'FiberContent', 'SugarContent', 'ProteinContent',
+       'RecipeServings', 'RecipeYield', 'RecipeInstructions', 'name',
+       'description', 'ingredients', 'ingredients_raw_str', 'serving_size',
+       'servings', 'steps', 'tags', 'search_terms']
  """
 
 
 all_columns = ["Name", "RecipeIngredientParts",
-               "RecipeInstructions", "Keywords"]
+               "RecipeInstructions", "Keywords", "search_terms"]
 dataset = dataset.map(lambda x: {"text": " ".join(
     [str(x[col]) for col in all_columns])})
 
@@ -89,13 +69,14 @@ new_data = dataset.remove_columns(all_columns)
 dataset = dataset.remove_columns("text")
 
 # TF-IDF implementation
-#vectorizer = TfidfVectorizer(tokenizer=preprocess)
+# vectorizer = TfidfVectorizer(tokenizer=preprocess)
 # This function takes around 9 minutes rest of the code is way faster
 # X = vectorizer.fit_transform(new_data['text'])
 # joblib.dump(vectorizer, "vectorizer.joblib")
 # save_npz("tfidf_matrix.npz", X)
-#vectorizer_path = os.path.join(os.path.dirname(__file__), "data/vectorizer.joblib")
-vectorizer = joblib.load(r"C:\Users\stpie\Documents\FMMI\Backend\data\vectorizer.joblib")
+# vectorizer_path = os.path.join(os.path.dirname(__file__), "data/vectorizer.joblib")
+vectorizer = joblib.load(
+    "Backend/data/vectorizer.joblib")
 X = load_npz("Backend/data/tfidf_matrix.npz")
 
 
@@ -123,6 +104,7 @@ def docs_dic_to_string(rel_docs):
         recipes += f"Id: {rel_docs[l]['RecipeId']}\n"
         recipes += f"Name: {rel_docs[l]['Name']}\n"
         recipes += f"Ingredients: {rel_docs[l]['RecipeIngredientParts']+rel_docs[l]['RecipeIngredientQuantities']}\n"
+        recipes += f"Ingredients quantities: {rel_docs[l]['ingredients_raw_str']}\n"
         recipes += f"Steps: {rel_docs[l]['RecipeInstructions']}\n"
         recipes += f"Keywords: {rel_docs[l]['Keywords']}\n"
         recipes += f"Calories: {rel_docs[l]['Calories']}\n"
@@ -136,6 +118,7 @@ def doc_to_string(doc):
     ret += f"Id: {doc['RecipeId']}\n"
     ret += f"Name: {doc['Name']}\n"
     ret += f"Ingredients: {doc['RecipeIngredientParts'] + doc['RecipeIngredientQuantities']}\n"
+    ret += f"Ingredients quantities: {doc['ingredients_raw_str']}\n"
     ret += f"Steps: {doc['RecipeInstructions']}\n"
     ret += f"Keywords: {doc['Keywords']}\n"
     ret += f"Calories: {doc['Calories']}\n"
@@ -158,7 +141,10 @@ The recipes are: {docs_dic_to_string(relevant_docs(string_to_vector(own_query)))
 
 # print(docs_dic_to_json(relevant_docs(string_to_vector(own_query))))
 """
-os.environ["API_KEY"] = 'AIzaSyAL6qjr1MajxRyNeVu0skzC4JvLiluPEH8'
+with open ("Backend/data/apikey.txt", "r") as f:
+    api_key = f.read().strip()
+
+os.environ["API_KEY"] = api_key
 genai.configure(api_key=os.environ["API_KEY"])
 
 genai.configure(api_key=os.environ["API_KEY"])
@@ -170,37 +156,41 @@ response = model.generate_content(f"{prompt}")
 
 
 def input_query(query):
-    return docs_dic_to_json(relevant_docs(string_to_vector(query))) #+ "\n" + response.text
+    # + "\n" + response.text
+    return docs_dic_to_json(relevant_docs(string_to_vector(query)))
 
 
-#print(input_query(own_query))
+# print(input_query(own_query))
 
 ##############################################################################################################
 ##############################################################################################################
 ##############################################################################################################
 ##############################################################################################################
 ##############################################################################################################
-
-
 
 
 app = Flask(__name__)
-CORS(app) #Prod: CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+# Prod: CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app)
 
 # Example data
 tasks = [
-    {"hello":"world"}
+    {"hello": "world"}
 ]
 
 # Home route
+
+
 @app.route("/", methods=["GET"])
 def home():
     return jsonify(tasks)
 
 # Generate recipes
+
+
 @app.route("/generate", methods=["POST"])
 def generate():
-    if not request.json or "hello" not in request.json: #body valid
+    if not request.json or "hello" not in request.json:  # body valid
         print("error invalid data")
         return jsonify({"error": "Invalid data"}), 400
     data = request.json
@@ -211,8 +201,6 @@ def generate():
 
     return jsonify(input_query("italian and tomato's")), 201
 
+
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
