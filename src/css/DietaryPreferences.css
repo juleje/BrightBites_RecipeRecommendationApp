@@ -7,60 +7,53 @@
 	height: 100vh;
 	padding: 20px;
 	background-color: #f9f9f9;
-}
-
-/* Header Styling */
-.header {
+  }
+  
+  /* Header Styling */
+  .header {
 	font-size: 24px;
 	font-weight: bold;
 	text-align: center;
 	margin-bottom: 20px;
-}
-
-/* Checkbox Styling */
-.checkbox-container {
+  }
+  
+  /* Checkbox Styling */
+  .checkbox-container {
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
 	margin-bottom: 20px;
-}
-
-.MuiFormControlLabel-root {
+  }
+  
+  .MuiFormControlLabel-root {
 	font-size: 18px;
 	display: flex;
 	align-items: center;
-}
-
-/* Button Styling */
-.button-container {
+  }
+  
+  /* Button Styling */
+  .button-container {
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
 	max-width: 300px;
-}
-
-.prev-btn,
-.skip-btn {
+  }
+  
+  .prev-btn, .skip-btn {
 	width: 45%;
 	padding: 10px 20px;
 	font-weight: bold;
-}
-
-.prev-btn {
-	background-color: #007bff;
-	/* Blue */
-}
-
-.skip-btn {
-	background-color: #28a745;
-	/* Green */
-}
-
-button:hover {
+  }
+  
+  .prev-btn {
+	background-color: #007bff; /* Blue */
+  }
+  
+  .skip-btn {
+	background-color: #28a745; /* Green */
+  }
+  
+  button:hover {
 	opacity: 0.9;
-}
-
-.checkbox-con {
-	height: 60vh;
-	overflow: auto;
-}
+  }
+  

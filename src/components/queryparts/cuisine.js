@@ -52,11 +52,11 @@ const CuisinePreferences = ({ handleToIngrdidients, backToDietary, cuisinePrefer
 		setCuisinePreferences((prev) => ({ ...prev, [key]: !prev[key] }));
 	};
 
-	return (
-		<div className="dietary-container">
-			<Typography variant="h5" className="header">
-				Any prefered cuisine?
-			</Typography>
+  return (
+    <div className="dietary-container">
+      <Typography variant="h5" className="dietary-header">
+        Any prefered cuisine?
+      </Typography>
 
 			<Box className="checkbox-container checkbox-con">
 				{preferencesLists.map((option) => (
