@@ -177,7 +177,7 @@ const RecipesWithxplanation = () => {
 
 	// Run on component mount
 	useEffect(() => {
-		//console.log(recipes)
+		// console.log(recipes)
 		if (recipes === "error") {
 			setError(true)
 		} else {
@@ -186,6 +186,20 @@ const RecipesWithxplanation = () => {
 		setIsLoading(!recipes);
 	}, [recipes]);
 
+	console.log(recipes);
+	const images_url = recipes ? (recipes.map((recipe) => 
+		recipe["Images"]
+		  ? recipe["Images"]
+			  .replace(/^c\("/, "") // Remove the `c("` at the start
+			  .replace(/"\)$/, "") // Remove the `")` at the end
+			  .split('", "') // Split strings based on `", "`
+			  .map((image) => image.trim()) // Trim spaces from each image
+		  : [] // If no "Images" field, return an empty array
+		  )
+	  ) : null;
+	  
+
+	// console.log(images_url);
 
 	return (
 		<Box display="flex" height="100vh">
@@ -223,14 +237,14 @@ const RecipesWithxplanation = () => {
 				) : recipes && recipes.length > 0 ? (
 					<Grid2 container spacing={3} className='cardgrid'>
 						{recipes.map((meal, index) => (
-							<Link key={index} to={`/recipe/${index}`} style={{ textDecoration: 'none' }}>
+							<Link key={index} to={`/recipe/${index}`} style={{ textDecoration: 'none', maxWidth: '100%'  }}>
 								<Grid2 item xs={12} sm={6} md={4}>
 									<Card className='card'>
+										{/* <p>{images_url ? images_url[0] : []}</p> */}
 										<CardMedia
 											component="img"
 											height="140"
-											image={meal["Images"]}
-
+											image={images_url[index][0]}
 											alt={meal["Name"]}
 										/>
 										<CardContent>
@@ -248,7 +262,7 @@ const RecipesWithxplanation = () => {
 												{NutritionInfo(meal["Calories"], meal["SugarContent"], meal["FatContent"], meal["SodiumContent"])}
 											</div>
 											<div className="description">
-												{meal["Description"]}
+												{meal["Description"].replaceAll("&quot;", "\"")}
 											</div>
 										</CardContent>
 									</Card>
