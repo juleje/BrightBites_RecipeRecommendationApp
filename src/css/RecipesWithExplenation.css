@@ -43,4 +43,29 @@
 
 .cardgrid {
 	height: 90%;
+	width: 90%;
+}
+
+.card {
+	min-width: 100%;
+}
+
+.time-rating{
+	display: flex;
+    justify-content: space-between; /* Or flex-end to align to the right edge */
+    align-items: center;
+	margin: 10px 0;
+}
+
+.description{
+	display: -webkit-box;
+	font-size: 10pt;
+	font-weight: normal;
+	text-align: justify;
+	max-width: 100%;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	text-overflow: ellipsis;
+	max-height: 93pt;
+	overflow: hidden;
 }

@@ -53,7 +53,7 @@ function formatDuration(duration) {
 	} else {
 		return `${minutes}min`;
 	}
-}
+};
 
 
 const NutritionInfo = ({ nutrition_icons }) => {

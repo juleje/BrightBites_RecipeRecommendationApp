@@ -4,9 +4,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import logo from '../img/minimalist-logo-trimmed.jpg';
 import '../css/RecipesWithExplenation.css';
 import { Box, Button, Typography, Alert, AlertTitle, Card, CardContent, CardMedia, Grid2, CircularProgress } from '@mui/material';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import ScaleIcon from '@mui/icons-material/Scale';
-import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { useRecipes } from '../hooks/RecipeContext';
 import go_back from '../img/go_back.png'
 import star0 from '../img/0stars.png'
@@ -15,7 +12,116 @@ import star2 from '../img/2stars.png'
 import star3 from '../img/3stars.png'
 import star4 from '../img/4stars.png'
 import star5 from '../img/5stars.png'
+import calories_red from '../img/calorie_red.png'
+import sugar_red from '../img/sugar_red.png'
+import fat_red from '../img/fat_red.png'
+import sodium_red from '../img/sodium_red.png'
+import calories_orange from '../img/calorie_orange.png'
+import sugar_orange from '../img/sugar_orange.png'
+import fat_orange from '../img/fat_orange.png'
+import sodium_orange from '../img/sodium_orange.png'
+import calories_green from '../img/calorie_green.png'
+import sugar_green from '../img/sugar_green.png'
+import fat_green from '../img/fat_green.png'
+import sodium_green from '../img/sodium_green.png'
 
+function formatDuration(duration) {
+	// Extract hours and minutes using regular expressions
+	const hoursMatch = duration.match(/PT(\d+)H/); // Look for 'PT<number>H'
+	const minutesMatch = duration.match(/(\d+)M/); // Look for '<number>M'
+
+	const hours = hoursMatch ? parseInt(hoursMatch[1], 10) : 0;
+	const minutes = minutesMatch ? parseInt(minutesMatch[1], 10) : 0;
+
+	// Format the output as 'h:mm' or '<minutes> min' if no hours
+	if (hours > 0 && minutes > 0) {
+		return `${hours}h ${minutes}min`;
+	} else if (hours > 0) {
+		return `${hours}h`;
+	} else {
+		return `${minutes}min`;
+	}
+};
+
+const NutritionInfo = (cals, sug, fat, sod) => {
+
+	const thresholds = {
+		calories: { low: 200, medium: 400 },
+		sugar: { low: 10, medium: 20 },
+		fat: { low: 5, medium: 15 },
+		sodium: { low: 150, medium: 300 }
+	};
+
+	const iconMap = {
+		calories_green: calories_green,
+		calories_orange: calories_orange,
+		calories_red: calories_red,
+		sugar_green: sugar_green,
+		sugar_orange: sugar_orange,
+		sugar_red: sugar_red,
+		fat_green: fat_green,
+		fat_orange: fat_orange,
+		fat_red: fat_red,
+		sodium_green: sodium_green,
+		sodium_orange: sodium_orange,
+		sodium_red: sodium_red,
+	};
+
+	// Define a utility function to determine icon and text based on thresholds
+	const getIconAndText = (value, metric) => {
+		const { low, medium } = thresholds[metric];
+
+		if (value <= low) {
+			return {
+				icon: `${metric}_green`,
+				text: `Low ${metric}: `,
+				number_unit: `${metricsToValueStrings[metric]}`,
+			};
+		} else if (value > low && value <= medium) {
+			return {
+				icon: `${metric}_orange`,
+				text: `Medium ${metric}: `,
+				number_unit: `${metricsToValueStrings[metric]}`,
+			};
+		} else {
+			return {
+				icon: `${metric}_red`,
+				text: `High ${metric}: `,
+				number_unit: `${metricsToValueStrings[metric]}`,
+			};
+		}
+	};
+
+	const metricsToValueStrings = {
+		"calories": `${cals} kcal`,
+		"sugar": `${sug} g`,
+		"fat": `${fat} g`,
+		"sodium": `${sod} mg`,
+	};
+
+	// Metrics and their corresponding recipe properties
+	const metrics = [
+		{ metric: "calories", value: cals },
+		{ metric: "sugar", value: sug },
+		{ metric: "fat", value: fat },
+		{ metric: "sodium", value: sod },
+	];
+
+	return (
+		<div className="nutrition-info">
+			{metrics.map(({ metric, value }) => {
+				const { icon, text, number_unit } = getIconAndText(value, metric);
+				return (
+					<div className="icon-container" key={metric}>
+						<img src={iconMap[icon]} alt={metric} />
+						{/*<p class="description">{text}</p>
+						<p class="number-unit">{number_unit}</p> */}
+					</div>
+				);
+			})}
+		</div>
+	);
+};
 
 const starRatingMap = {
 	0: star0,
@@ -39,12 +145,18 @@ const RatingImage = ({ rating }) => {
 };
 
 const DisplayImage = ({ input }) => {
-	const [imageUrl, setImageUrl] = useState('');
+	const [imageUrl, setImageUrl] = useState(null);
 
 	useEffect(() => {
-		const urlArray = input.split('", "').map((url) => url.replace(/"/g, ''));
-		setImageUrl(urlArray[0]);
+		if (input) {
+			const urlArray = input.split('", "').map((url) => url.replace(/"/g, ''));
+			setImageUrl(urlArray[0]);
+		}
 	}, [input]);
+
+	if (imageUrl === "character(0)") {
+		return null;
+	}
 
 	return (
 		<div>
@@ -78,8 +190,7 @@ const RecipesWithxplanation = () => {
 	return (
 		<Box display="flex" height="100vh">
 			{/* Header */}
-			<Box className="header">
-				<Typography variant="h5" className="title">Recipes</Typography>
+			<div class="header"> Recipes
 				{/* Logo in top right */}
 				<img
 					onClick={() => navigate("/")}
@@ -94,7 +205,7 @@ const RecipesWithxplanation = () => {
 						style={{ width: '50px', height: '50px' }} // Adjust image size
 					/>
 				</Button>
-			</Box>
+			</div>
 
 			{/* Main Content Area */}
 			<Box className="main">
@@ -112,17 +223,14 @@ const RecipesWithxplanation = () => {
 				) : recipes && recipes.length > 0 ? (
 					<Grid2 container spacing={3} className='cardgrid'>
 						{recipes.map((meal, index) => (
-							<Link key={index} to={`/recipe/${index}`}>
+							<Link key={index} to={`/recipe/${index}`} style={{ textDecoration: 'none' }}>
 								<Grid2 item xs={12} sm={6} md={4}>
-									<Card>
+									<Card className='card'>
 										<CardMedia
 											component="img"
 											height="140"
 											image={meal["Images"]}
 
-											//todo get one image of the list
-											//.split(',').map(url => url.trim().replace(/^"|"$/g, ''))[0]
-											//""https://img.sndimg.com/food/image/upload/w_555,h_416,c_fit,fl_progressive,q_95/v1/img/recipes/28/07/67/picWCKjGq.jpg", "https://img.sndimg.com/food/image/upload/w_555,h_416,c_fit,fl_progressive,q_95/v1/img/recipes/28/07/67/picTftMcf.jpg", "https://img.sndimg.com/food/image/upload/w_555,h_416,c_fit,fl_progressive,q_95/v1/img/recipes/28/07/67/picp0lR15.jpg""
 											alt={meal["Name"]}
 										/>
 										<CardContent>
@@ -130,21 +238,18 @@ const RecipesWithxplanation = () => {
 											<Typography variant="body2" color="textSecondary">
 												Category: {meal["RecipeCategory"]}
 											</Typography>
-											<Typography variant="body2" color="textSecondary">
-												Time: {meal["TotalTime"]}
-											</Typography>
-											<Box display="flex" alignItems="center" mt={1}>
-												<LocalFireDepartmentIcon color="error" style={{ marginRight: 4 }} />
-												<Typography variant="body2">Kcal: 500</Typography>
-											</Box>
-											<Box display="flex" alignItems="center" mt={1}>
-												<ScaleIcon color="primary" style={{ marginRight: 4 }} />
-												<Typography variant="body2">Fat: 20g</Typography>
-											</Box>
-											<Box display="flex" alignItems="center" mt={1}>
-												<ViewInArIcon color="secondary" style={{ marginRight: 4 }} />
-												<Typography variant="body2">Sugar: 15g</Typography>
-											</Box>
+											<div className="time-rating">
+												<span>⏱️: {formatDuration(meal["TotalTime"])}</span>
+												<div>
+													<RatingImage rating={meal["AggregatedRating"]} />
+												</div>
+											</div>
+											<div>
+												{NutritionInfo(meal["Calories"], meal["SugarContent"], meal["FatContent"], meal["SodiumContent"])}
+											</div>
+											<div className="description">
+												{meal["Description"]}
+											</div>
 										</CardContent>
 									</Card>
 								</Grid2>
@@ -155,7 +260,7 @@ const RecipesWithxplanation = () => {
 					<div>No recipes available</div>
 				)}
 			</Box>
-		</Box>
+		</Box >
 	);
 };
 
