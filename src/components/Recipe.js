@@ -200,7 +200,7 @@ function DisplayImage({ input }) {
 			{imageUrl && (
 				<img
 					src={imageUrl}
-					alt="First Image"
+					alt="First"
 				/>
 			)}
 		</div>

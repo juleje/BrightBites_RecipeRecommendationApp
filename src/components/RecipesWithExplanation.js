@@ -1,44 +1,85 @@
 // src/components/RecipesWithoutExplanation.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import logo from '../img/logo.svg';
+import logo from '../img/minimalist-logo-trimmed.jpg';
 import '../css/RecipesWithExplenation.css';
-import { Box, Typography, Alert, AlertTitle, Card, CardContent, CardMedia, Grid, CircularProgress } from '@mui/material';
+import { Box, Button, Typography, Alert, AlertTitle, Card, CardContent, CardMedia, Grid2, CircularProgress } from '@mui/material';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import ScaleIcon from '@mui/icons-material/Scale';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { useRecipes } from '../hooks/RecipeContext';
+import go_back from '../img/go_back.png'
+import star0 from '../img/0stars.png'
+import star1 from '../img/1star.png'
+import star2 from '../img/2stars.png'
+import star3 from '../img/3stars.png'
+import star4 from '../img/4stars.png'
+import star5 from '../img/5stars.png'
 
+
+const starRatingMap = {
+	0: star0,
+	1: star1,
+	2: star2,
+	3: star3,
+	4: star4,
+	5: star5,
+};
+
+const RatingImage = ({ rating }) => {
+	const normalizedRating = Math.max(0, Math.min(5, Math.floor(rating)));
+	return (
+		<div>
+			<img src={starRatingMap[normalizedRating]}
+				alt={`${normalizedRating} stars`}
+				width="140"
+				height="30" />
+		</div>
+	);
+};
+
+const DisplayImage = ({ input }) => {
+	const [imageUrl, setImageUrl] = useState('');
+
+	useEffect(() => {
+		const urlArray = input.split('", "').map((url) => url.replace(/"/g, ''));
+		setImageUrl(urlArray[0]);
+	}, [input]);
+
+	return (
+		<div>
+			{imageUrl && (
+				<img
+					src={imageUrl}
+					alt="Recipe displayed"
+				/>)}
+		</div>
+	);
+};
 
 const RecipesWithxplanation = () => {
-	const { recipes } = useRecipes();
-
+	const { recipes, explanations } = useRecipes();
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(false);
 
 	// Run on component mount
 	useEffect(() => {
-		console.log(recipes)
+		//console.log(recipes)
 		if (recipes === "error") {
 			setError(true)
 		} else {
 			setError(false)
 		}
-		if (!recipes) {
-			setIsLoading(true)
-		} else {
-			setIsLoading(false)
-		}
+		setIsLoading(!recipes);
 	}, [recipes]);
-
 
 
 	return (
 		<Box display="flex" height="100vh">
-
-			{/* Main Content Area */}
-			<Box className="main">
+			{/* Header */}
+			<Box className="header">
+				<Typography variant="h5" className="title">Recipes</Typography>
 				{/* Logo in top right */}
 				<img
 					onClick={() => navigate("/")}
@@ -46,6 +87,17 @@ const RecipesWithxplanation = () => {
 					src={logo}
 					alt="Logo"
 				/>
+				<Button variant="contained" color="primary" onClick={() => navigate(-1)}>
+					<img
+						src={go_back}
+						alt="Go back button"
+						style={{ width: '50px', height: '50px' }} // Adjust image size
+					/>
+				</Button>
+			</Box>
+
+			{/* Main Content Area */}
+			<Box className="main">
 				{isLoading ? (
 					<div>
 						<CircularProgress />
@@ -58,10 +110,10 @@ const RecipesWithxplanation = () => {
 						</Alert>
 					</Box>
 				) : recipes && recipes.length > 0 ? (
-					<Grid container spacing={3} className='cardgrid'>
+					<Grid2 container spacing={3} className='cardgrid'>
 						{recipes.map((meal, index) => (
 							<Link key={index} to={`/recipe/${index}`}>
-								<Grid item xs={12} sm={6} md={4}>
+								<Grid2 item xs={12} sm={6} md={4}>
 									<Card>
 										<CardMedia
 											component="img"
@@ -81,7 +133,6 @@ const RecipesWithxplanation = () => {
 											<Typography variant="body2" color="textSecondary">
 												Time: {meal["TotalTime"]}
 											</Typography>
-											{/* Icons for kcal, fat, and sugar */}
 											<Box display="flex" alignItems="center" mt={1}>
 												<LocalFireDepartmentIcon color="error" style={{ marginRight: 4 }} />
 												<Typography variant="body2">Kcal: 500</Typography>
@@ -96,10 +147,10 @@ const RecipesWithxplanation = () => {
 											</Box>
 										</CardContent>
 									</Card>
-								</Grid>
+								</Grid2>
 							</Link>
 						))}
-					</Grid>
+					</Grid2>
 				) : (
 					<div>No recipes available</div>
 				)}
