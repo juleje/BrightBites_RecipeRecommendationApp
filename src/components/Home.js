@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PreferenceContext } from "../contexts/PreferenceContext";
 import "../css/Home.css";
+import background from '../img/background_black_white.png'
 import {
   Checkbox,
   FormControlLabel,
@@ -23,31 +24,33 @@ const Home = () => {
       {/* Header */}
       <h1 className="home-header">Bright Bites</h1>
       {/* image */}
-      <div className="box">
-        <img src={homebanner} alt="Healthy person" className="healthy-image" />
+      <div className="content">
+        <div className="box">
+          <img src={homebanner} alt="Healthy person" className="healthy-image" />
 
-        <Box className="home-checkbox-container">
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={state.preference}
-                onChange={() => state.setPreference(!state.preference)}
-              />
-            }
-            label="Add Healthiness Explanations"
-          />
-        </Box>
+          <Box className="home-checkbox-container">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={state.preference}
+                  onChange={() => state.setPreference(!state.preference)}
+                />
+              }
+              label="Add Healthiness Explanations"
+            />
+          </Box>
 
-        {/* Start Button */}
-        <button className="start-button" onClick={() => navigate("/query")}>
-          START
-        </button>
-      </div>
-      {/* Description */}
-      <p className="description">
-        The recipe recommendation app designed to inspire your healthy
-        lifestyle!
-      </p>
+          {/* Start Button */}
+          <button className="start-button" onClick={() => navigate("/query")}>
+            START
+          </button>
+        </div>
+        {/* Description */}
+        <p className="description">
+          The recipe recommendation app designed to inspire your healthy
+          lifestyle!
+        </p>
+        </div>
     </div>
   );
 };
