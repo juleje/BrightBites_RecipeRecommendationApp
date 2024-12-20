@@ -19,7 +19,7 @@ const RecipesWithxplanation = () => {
 
 	// Run on component mount
 	useEffect(() => {
-		console.log(recipes)
+		// console.log(recipes)
 		if (recipes === "error") {
 			setError(true)
 		} else {

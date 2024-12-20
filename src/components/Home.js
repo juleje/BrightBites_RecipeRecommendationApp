@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const state = useContext(PreferenceContext);
-  console.log(state.preference);
+  // console.log(state.preference);
 
   const navigate = useNavigate();
 

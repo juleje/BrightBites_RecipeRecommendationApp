@@ -207,6 +207,23 @@ function DisplayImage({ input }) {
 	);
 }
 
+
+const getHealthExplanations = (recipeId, explantations) => {
+	const recipe = explantations.recipes.find(r => r.recipe_id === recipeId);
+	return recipe ? recipe.health_explanation : null;
+};
+
+const BulletPointList = ({ items }) => {
+	return (
+		<ul>
+		{items.map((item, index) => (
+			<li key={index}>{item}</li>
+		))}
+		</ul>
+	);
+};
+  
+
 function Recipe() {
 	const { index } = useParams();
 	const { recipes, explenations } = useRecipes();
@@ -219,33 +236,18 @@ function Recipe() {
 		return <div>Recipe not found</div>;
 	} else {
 
-
 		const ingredientquantities = clickedRecipe.ingredients_raw_str
-			? clickedRecipe.ingredients_raw_str
-				.split(",") // split since these are stored in a list
-				.map((ingredientquant) => ingredientquant.trim().replace(/^"|"$/g, ""))
-			: [];
-
-		const ingredients = clickedRecipe.RecipeIngredientParts
-			? clickedRecipe.RecipeIngredientParts
-				.split(",") // Split the string by commas
-				.map((ingredient) => ingredient.trim().replace(/^"|"$/g, "")) // Remove quotes and trim spaces
-			: [];
-		const quantities = clickedRecipe.RecipeIngredientQuantities
-			? clickedRecipe.RecipeIngredientQuantities
-				.split(",") // Split the string by commas
-				.map((quantity) => quantity.trim().replace(/^"|"$/g, "")) // Remove quotes and trim spaces
-			: [];
-
-		const combined = ingredients.map((ingredient, index) => ({
-			ingredient: ingredient,
-			quantity: quantities[index],
-		}));
+		? clickedRecipe.ingredients_raw_str
+			.match(/"([^"]*)"/g) // Match text inside quotes
+			.map((ingredientquant) => ingredientquant.replace(/^"|"$/g, "").trim()) // Remove quotes and trim
+		: [];
 
 		const steps = clickedRecipe.RecipeInstructions
 			? clickedRecipe.RecipeInstructions
-				.split(",") // Split the string by commas
-				.map((step) => step.trim().replace(/^"|"$/g, "")) // Remove quotes and trim spaces
+				.replace(/^c\("/, "") // Remove the `c("` at the start
+				.replace(/"\)$/, "") // Remove the `")` at the end
+				.split('", "') // Split sentences based on `", "`
+				.map((step) => step.trim()) // Trim spaces from each sentence
 			: [];
 
 		return (
@@ -288,23 +290,14 @@ function Recipe() {
 
 					<div class="health-explanations">
 						<div class="section-title">Health Explanations:</div>
-						<p>{JSON.stringify(explenations)}</p>
+						<p>{getHealthExplanations(clickedRecipe.RecipeId, explenations)}</p>
 					</div>
 					<div class="ingredients">
 						<div class="section-title">Ingredients:</div>
 						<ul>
-							{combined.map((item, index) => (
-								<li key={index}>
-									{item.quantity} {item.ingredient}
-								</li>
-							))}
-						</ul>
-						<div class="section-title">Ingredients v2:</div>
-						<ul>
 							{ingredientquantities.map((item, index) => (
 								<li key={index}>{item}</li>
 							))}
-
 						</ul>
 					</div>
 					<div class="steps">
