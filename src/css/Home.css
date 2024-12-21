@@ -28,7 +28,8 @@
   font-weight: bold;
   /* color: #0ec704; */
   color: #28a745;
-  margin-bottom: 35px;
+  margin-bottom: 3vw;
+  margin-top: 1vw;
   text-shadow: 1px 1px 1px black;
 }
 
@@ -36,11 +37,11 @@
 .box {
   position: relative;
   width: 100%;
-  height: 500px;
-  border: 2px solid #28a745;
+  height: 135vw;
+  border: 0.5px solid #28a745;
   margin-bottom: 20px;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius:10px;
   background-color: #c9e6a470;
 }
 
@@ -50,26 +51,26 @@
   transform: translateX(-50%);
   top: 20px;
   left: 50%;
-  max-width: 300px;
-  border-radius: 10px;
+  max-width: 75vw;
+  border-radius: 15px;
   object-fit: cover;
 }
 
 /* Start Button */
 .start-button {
-  position: absolute;
-  bottom: 5%;
+  position: relative;
+  margin-top: 125%;
   left: 50%;
   transform: translateX(-50%);
   color: #ffffff;
   /* color: #0ec704; */
   background-color: #28a745;
   font-weight: bold;
-  font-size: 20px;
-  text-shadow: 0.5px 0.5px black;
+  font-size: 5vw;
+  text-shadow: 0.2vw 0.2vw 0.2vw black;
   border-color: black;
-  border-width: thin;
-  padding: 10px 45px;
+  border-width: 0.1vw;
+  padding: 3vw 8vw;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -84,13 +85,15 @@
   color: #28a745;
   text-align: center;
   /* max-width: 100%; */
-  text-shadow: 1px 1px 1px black;
+  text-shadow: 0.2vw 0.2vw 0.2vw black;
   overflow: hidden;
 }
 
 .home-checkbox-container {
   position: absolute;
-  bottom: 20%;
+  margin-top: 100%;
   left: 50%;
   transform: translateX(-50%);
+  width: 50vw;
 }
+

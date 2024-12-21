@@ -9,8 +9,8 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import homebanner from "../img/salad.jpg";
-//import minimalist from '../img/minimalist-logo.jpg'
+//import homebanner from "../img/salad.jpg";
+import homebanner from "../img/minimalist-logo-trimmed.jpg"
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -36,7 +36,11 @@ const Home = () => {
                   onChange={() => state.setPreference(!state.preference)}
                 />
               }
-              label="Don't include healthiness explanations"
+              label={
+                <Typography variant="body1" style={{ color: 'black', fontWeight: 'bold', textAlign: 'center' }}>
+                  Without healthiness explanations
+                </Typography>
+              }
             />
           </Box>
 
@@ -50,7 +54,7 @@ const Home = () => {
           The recipe recommendation app designed to inspire your healthy
           lifestyle!
         </p>
-        </div>
+      </div>
     </div>
   );
 };

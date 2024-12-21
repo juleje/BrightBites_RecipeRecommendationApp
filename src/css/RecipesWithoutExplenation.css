@@ -13,6 +13,8 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+
+
 .main {
 	flex: 1;
 	display: flex;
@@ -41,4 +43,40 @@
 
 .cardgrid {
 	height: 90%;
+	width: 90%;
+}
+
+.card {
+	min-width: 100%;
+}
+
+.time-rating{
+	display: flex;
+    justify-content: space-between; /* Or flex-end to align to the right edge */
+    align-items: center;
+	margin: 10px 0;
+}
+
+.description_over{
+	display: -webkit-box;
+	font-size: 10pt;
+	font-weight: normal;
+	text-align: justify;
+	max-width: 100%;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	text-overflow: ellipsis;
+	max-height: 93pt;
+	overflow: hidden;
+}
+
+.nutrition-info {
+	max-width: 90%;
+}
+
+.icon-container .description_overview {
+    text-align: center;
+    margin-top: 5px; /* Add some spacing between the icon and the description */
+    font-size: 14px;
+    font-weight: normal;
 }
