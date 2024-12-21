@@ -196,7 +196,7 @@ const RecipesWithxplanation = () => {
 		  : [] // If no "Images" field, return an empty array
 	  )) : null;
 
-	// console.log(images_url);
+	console.log(images_url);
 
 	return (
 		<Box display="flex" height="100vh">

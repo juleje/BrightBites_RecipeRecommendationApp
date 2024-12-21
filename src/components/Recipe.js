@@ -188,7 +188,10 @@ function DisplayImage({ input }) {
 
 	useEffect(() => {
 		// Clean the input string, split by commas and remove the quotes
-		const urlArray = input.split('", "').map(url => url.replace(/"/g, ''));
+		const urlArray = input
+			.replace(/^c\("/, "") // Remove the `c("` at the start
+			.replace(/"\)$/, "") // Remove the `")` at the end
+			.split('", "').map(url => url.replace(/"/g, ''));
 
 		// Set the first URL in the state
 		setImageUrl(urlArray[0]);
@@ -250,7 +253,7 @@ function Recipe() {
 				.map((step) => step.trim()) // Trim spaces from each sentence
 			: [];
 
-		console.log(clickedRecipe.Images);
+		// console.log(clickedRecipe.Images);
 
 		return (
 
