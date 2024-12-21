@@ -275,7 +275,7 @@ function Recipe() {
 							<RatingImage rating={clickedRecipe.AggregatedRating} />
 						</div>
 					</div>
-					<div>
+					<div class="nutrition-container">
 						<NutritionInfo nutrition_icons={clickedRecipe} />
 					</div>
 					<div class="motivation">
