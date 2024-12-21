@@ -46,25 +46,25 @@ function formatDuration(duration) {
 const NutritionInfo = (cals, sug, fat, sod) => {
 
 	const thresholds = {
-		calories: { low: 200, medium: 400 },
-		sugar: { low: 10, medium: 20 },
-		fat: { low: 5, medium: 15 },
-		sodium: { low: 150, medium: 300 }
+		Calories: { low: 200, medium: 400 },
+		Sugar: { low: 10, medium: 20 },
+		Fat: { low: 5, medium: 15 },
+		Sodium: { low: 150, medium: 300 }
 	};
 
 	const iconMap = {
-		calories_green: calories_green,
-		calories_orange: calories_orange,
-		calories_red: calories_red,
-		sugar_green: sugar_green,
-		sugar_orange: sugar_orange,
-		sugar_red: sugar_red,
-		fat_green: fat_green,
-		fat_orange: fat_orange,
-		fat_red: fat_red,
-		sodium_green: sodium_green,
-		sodium_orange: sodium_orange,
-		sodium_red: sodium_red,
+		Calories_green: calories_green,
+		Calories_orange: calories_orange,
+		Calories_red: calories_red,
+		Sugar_green: sugar_green,
+		Sugar_orange: sugar_orange,
+		Sugar_red: sugar_red,
+		Fat_green: fat_green,
+		Fat_orange: fat_orange,
+		Fat_red: fat_red,
+		Sodium_green: sodium_green,
+		Sodium_orange: sodium_orange,
+		Sodium_red: sodium_red,
 	};
 
 	// Define a utility function to determine icon and text based on thresholds
@@ -74,19 +74,19 @@ const NutritionInfo = (cals, sug, fat, sod) => {
 		if (value <= low) {
 			return {
 				icon: `${metric}_green`,
-				text: `Low ${metric}: `,
+				text: `${metric}`,
 				number_unit: `${metricsToValueStrings[metric]}`,
 			};
 		} else if (value > low && value <= medium) {
 			return {
 				icon: `${metric}_orange`,
-				text: `Medium ${metric}: `,
+				text: `${metric}`,
 				number_unit: `${metricsToValueStrings[metric]}`,
 			};
 		} else {
 			return {
 				icon: `${metric}_red`,
-				text: `High ${metric}: `,
+				text: `${metric}`,
 				number_unit: `${metricsToValueStrings[metric]}`,
 			};
 		}
@@ -101,10 +101,10 @@ const NutritionInfo = (cals, sug, fat, sod) => {
 
 	// Metrics and their corresponding recipe properties
 	const metrics = [
-		{ metric: "calories", value: cals },
-		{ metric: "sugar", value: sug },
-		{ metric: "fat", value: fat },
-		{ metric: "sodium", value: sod },
+		{ metric: "Calories", value: cals },
+		{ metric: "Sugar", value: sug },
+		{ metric: "Fat", value: fat },
+		{ metric: "Sodium", value: sod },
 	];
 
 	return (
@@ -114,8 +114,8 @@ const NutritionInfo = (cals, sug, fat, sod) => {
 				return (
 					<div className="icon-container" key={metric}>
 						<img src={iconMap[icon]} alt={metric} />
-						{/*<p class="description">{text}</p>
-						<p class="number-unit">{number_unit}</p> */}
+						<p class="description_overview">{text}</p>
+						{/* <p class="number-unit">{number_unit}</p> */}
 					</div>
 				);
 			})}

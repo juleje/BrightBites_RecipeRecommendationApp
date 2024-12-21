@@ -69,3 +69,14 @@
 	max-height: 93pt;
 	overflow: hidden;
 }
+
+.nutrition-info {
+	max-width: 90%;
+}
+
+.icon-container .description_overview {
+    text-align: center;
+    margin-top: 5px; /* Add some spacing between the icon and the description */
+    font-size: 14px;
+    font-weight: normal;
+}
