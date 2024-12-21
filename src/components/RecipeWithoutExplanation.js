@@ -55,87 +55,6 @@ function formatDuration(duration) {
 	}
 };
 
-
-const NutritionInfo = ({ nutrition_icons }) => {
-
-	const thresholds = {
-		calories: { low: 200, medium: 400 },
-		sugar: { low: 10, medium: 20 },
-		fat: { low: 5, medium: 15 },
-		sodium: { low: 150, medium: 300 }
-	};
-
-	const iconMap = {
-		calories_green: calories_green,
-		calories_orange: calories_orange,
-		calories_red: calories_red,
-		sugar_green: sugar_green,
-		sugar_orange: sugar_orange,
-		sugar_red: sugar_red,
-		fat_green: fat_green,
-		fat_orange: fat_orange,
-		fat_red: fat_red,
-		sodium_green: sodium_green,
-		sodium_orange: sodium_orange,
-		sodium_red: sodium_red,
-	};
-
-	// Define a utility function to determine icon and text based on thresholds
-	const getIconAndText = (value, metric) => {
-		const { low, medium } = thresholds[metric];
-
-		if (value <= low) {
-			return {
-				icon: `${metric}_green`,
-				text: `Low ${metric}: `,
-				number_unit: `${metricsToValueStrings[metric]}`,
-			};
-		} else if (value > low && value <= medium) {
-			return {
-				icon: `${metric}_orange`,
-				text: `Medium ${metric}: `,
-				number_unit: `${metricsToValueStrings[metric]}`,
-			};
-		} else {
-			return {
-				icon: `${metric}_red`,
-				text: `High ${metric}: `,
-				number_unit: `${metricsToValueStrings[metric]}`,
-			};
-		}
-	};
-
-	const metricsToValueStrings = {
-		"calories": `${nutrition_icons.Calories} kcal`,
-		"sugar": `${nutrition_icons.SugarContent} g`,
-		"fat": `${nutrition_icons.FatContent} g`,
-		"sodium": `${nutrition_icons.SodiumContent} mg`,
-	};
-
-	// Metrics and their corresponding recipe properties
-	const metrics = [
-		{ metric: "calories", value: nutrition_icons.Calories },
-		{ metric: "sugar", value: nutrition_icons.SugarContent },
-		{ metric: "fat", value: nutrition_icons.FatContent },
-		{ metric: "sodium", value: nutrition_icons.SodiumContent },
-	];
-
-	return (
-		<div className="nutrition-info">
-			{metrics.map(({ metric, value }) => {
-				const { icon, text, number_unit } = getIconAndText(value, metric);
-				return (
-					<div className="icon-container" key={metric}>
-						<img src={iconMap[icon]} alt={metric} />
-						<p class="description_icons">{text}</p>
-						<p class="number-unit">{number_unit}</p>
-					</div>
-				);
-			})}
-		</div>
-	);
-};
-
 // Map rating values to corresponding images
 const starRatingMap = {
 	0: star0,
@@ -211,12 +130,6 @@ function DisplayImage({ input }) {
 }
 
 
-const getHealthExplanations = (recipeId, explantations) => {
-	const recipe = explantations.recipes.find(r => r.recipe_id === recipeId);
-	return recipe ? recipe.health_explanation : null;
-};
-
-
 function Recipe() {
 	const { index } = useParams();
 	const { recipes, explenations } = useRecipes();
@@ -275,17 +188,9 @@ function Recipe() {
 							<RatingImage rating={clickedRecipe.AggregatedRating} />
 						</div>
 					</div>
-					<div>
-						<NutritionInfo nutrition_icons={clickedRecipe} />
-					</div>
 					<div class="motivation">
 						<div class="section-title">Motivation:</div>
 						<p>{getRandomMotivation(clickedRecipe.Calories)}</p>
-					</div>
-
-					<div class="health-explanations">
-						<div class="section-title">Health Explanations:</div>
-						<p>{getHealthExplanations(clickedRecipe.RecipeId, explenations)}</p>
 					</div>
 					<div class="ingredients">
 						<div class="section-title">Ingredients:</div>
