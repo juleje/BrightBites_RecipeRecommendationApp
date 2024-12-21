@@ -250,6 +250,8 @@ function Recipe() {
 				.map((step) => step.trim()) // Trim spaces from each sentence
 			: [];
 
+		console.log(clickedRecipe.Images);
+
 		return (
 
 			<div class="recipe-card">

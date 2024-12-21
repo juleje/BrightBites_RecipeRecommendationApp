@@ -24,7 +24,7 @@ const Home = () => {
       {/* Header */}
       <h1 className="home-header">Bright Bites</h1>
       {/* image */}
-      <div className="content">
+      <div className="home_content">
         <div className="box">
           <img src={homebanner} alt="Healthy person" className="healthy-image" />
 

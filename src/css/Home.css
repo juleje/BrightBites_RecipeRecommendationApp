@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* height: 90vh; */
+  height: 100%;
   background-image: url("../img/background_black_white.png");
   background-size: cover; /* Makes the image cover the entire container */
   background-position: center; /* Centers the image */
@@ -13,17 +13,18 @@
   padding: 20px;
 }
 
-.content {
+.home_content {
   /* display: flex; */
   z-index: 1; /* Ensures the content is above the background */
   border-radius: 8px; /* Optional: Round the corners of the content box */
   align-items: center;
   justify-content: center;
+  
 }
 
 /* Header */
 .home-header {
-  font-size: 60px;
+  font-size: 14vw;
   font-weight: bold;
   /* color: #0ec704; */
   color: #28a745;
@@ -77,14 +78,14 @@
   background-color: #008080;
 }
 
-/* Description */
 .description {
-  font-size: 25px;
+  font-size: 6vw;
   font-weight: bold;
   color: #28a745;
   text-align: center;
-  max-width: 100%;
+  /* max-width: 100%; */
   text-shadow: 1px 1px 1px black;
+  overflow: hidden;
 }
 
 .home-checkbox-container {

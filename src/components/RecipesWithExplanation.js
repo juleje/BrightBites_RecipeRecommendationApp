@@ -186,18 +186,15 @@ const RecipesWithxplanation = () => {
 		setIsLoading(!recipes);
 	}, [recipes]);
 
-	console.log(recipes);
-	const images_url = recipes ? (recipes.map((recipe) => 
+	  const images_url = recipes ? (recipes.map((recipe) => 
 		recipe["Images"]
 		  ? recipe["Images"]
 			  .replace(/^c\("/, "") // Remove the `c("` at the start
 			  .replace(/"\)$/, "") // Remove the `")` at the end
 			  .split('", "') // Split strings based on `", "`
-			  .map((image) => image.trim()) // Trim spaces from each image
+			  .map((image) => image.trim().replace(/^"|"$/g, "")) // Trim spaces and remove extra quotes
 		  : [] // If no "Images" field, return an empty array
-		  )
-	  ) : null;
-	  
+	  )) : null;
 
 	// console.log(images_url);
 
@@ -261,7 +258,7 @@ const RecipesWithxplanation = () => {
 											<div>
 												{NutritionInfo(meal["Calories"], meal["SugarContent"], meal["FatContent"], meal["SodiumContent"])}
 											</div>
-											<div className="description">
+											<div className="description_over">
 												{meal["Description"].replaceAll("&quot;", "\"")}
 											</div>
 										</CardContent>
