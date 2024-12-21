@@ -255,9 +255,9 @@ const RecipesWithxplanation = () => {
 													<RatingImage rating={meal["AggregatedRating"]} />
 												</div>
 											</div>
-											<div>
+											{/* <div>
 												{NutritionInfo(meal["Calories"], meal["SugarContent"], meal["FatContent"], meal["SodiumContent"])}
-											</div>
+											</div> */}
 											<div className="description_over">
 												{meal["Description"].replaceAll("&quot;", "\"")}
 											</div>
