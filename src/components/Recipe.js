@@ -53,7 +53,7 @@ function formatDuration(duration) {
 	} else {
 		return `${minutes}min`;
 	}
-}
+};
 
 
 const NutritionInfo = ({ nutrition_icons }) => {
@@ -200,7 +200,7 @@ function DisplayImage({ input }) {
 			{imageUrl && (
 				<img
 					src={imageUrl}
-					alt="First Image"
+					alt="First"
 				/>
 			)}
 		</div>
