@@ -111,11 +111,11 @@
     text-align: center;
 }
 
-.icon-container .description {
+.icon-container .description_icons {
     text-align: center;
     margin-top: 5px; /* Add some spacing between the icon and the description */
-    font-size: 16px;
-    font-weight: normal;
+    /* font-size: 16px;
+    font-weight: normal; */
 }
 
 .icon-container .number-unit {

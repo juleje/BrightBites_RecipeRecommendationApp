@@ -127,7 +127,7 @@ const NutritionInfo = ({ nutrition_icons }) => {
 				return (
 					<div className="icon-container" key={metric}>
 						<img src={iconMap[icon]} alt={metric} />
-						<p class="description">{text}</p>
+						<p class="description_icons">{text}</p>
 						<p class="number-unit">{number_unit}</p>
 					</div>
 				);

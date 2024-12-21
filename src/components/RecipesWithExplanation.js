@@ -10,7 +10,7 @@ import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { useRecipes } from '../hooks/RecipeContext';
 
 
-const RecipesWithxplanation = () => {
+const RecipesWithxplanation = () => { 
 	const { recipes } = useRecipes();
 
 	const navigate = useNavigate();
