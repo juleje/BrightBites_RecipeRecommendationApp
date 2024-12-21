@@ -37,9 +37,9 @@
 .box {
   position: relative;
   width: 100%;
-  height: 135vw;
-  border: 0.5px solid #28a745;
-  margin-bottom: 20px;
+  height: 128vw;
+  border: 0.2vw solid #28a745;
+  margin-bottom: 5vw;
   overflow: hidden;
   border-radius:10px;
   background-color: #c9e6a470;
@@ -59,7 +59,7 @@
 /* Start Button */
 .start-button {
   position: relative;
-  margin-top: 125%;
+  margin-top: 120%;
   left: 50%;
   transform: translateX(-50%);
   color: #ffffff;
@@ -91,7 +91,7 @@
 
 .home-checkbox-container {
   position: absolute;
-  margin-top: 100%;
+  margin-top: 98%;
   left: 50%;
   transform: translateX(-50%);
   width: 50vw;

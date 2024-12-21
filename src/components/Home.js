@@ -37,7 +37,7 @@ const Home = () => {
                 />
               }
               label={
-                <Typography variant="body1" style={{ color: 'black', fontWeight: 'bold', textAlign: 'center' }}>
+                <Typography variant="body1" style={{ color: 'black', fontWeight: 'bold', textAlign: 'center', fontSize: '4vw' }}>
                   Without healthiness explanations
                 </Typography>
               }
