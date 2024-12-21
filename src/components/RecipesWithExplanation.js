@@ -144,29 +144,12 @@ const RatingImage = ({ rating }) => {
 	);
 };
 
-const DisplayImage = ({ input }) => {
-	const [imageUrl, setImageUrl] = useState(null);
-
-	useEffect(() => {
-		if (input) {
-			const urlArray = input.split('", "').map((url) => url.replace(/"/g, ''));
-			setImageUrl(urlArray[0]);
-		}
-	}, [input]);
-
-	if (imageUrl === "character(0)") {
+const DisplayImage = ({ images_list }) => {
+	if (images_list[0] !== "character(0)") {
+		return (images_list[0])
+	} else {
 		return null;
 	}
-
-	return (
-		<div>
-			{imageUrl && (
-				<img
-					src={imageUrl}
-					alt="Recipe displayed"
-				/>)}
-		</div>
-	);
 };
 
 const RecipesWithxplanation = () => {
@@ -240,9 +223,9 @@ const RecipesWithxplanation = () => {
 										{/* <p>{images_url ? images_url[0] : []}</p> */}
 										<CardMedia
 											component="img"
-											height="140"
 											image={images_url[index][0]}
 											alt={meal["Name"]}
+											max-height="20vw"
 										/>
 										<CardContent>
 											<Typography variant="h6">{meal["Name"]}</Typography>

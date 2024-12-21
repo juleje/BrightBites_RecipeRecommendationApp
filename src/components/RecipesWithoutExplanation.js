@@ -243,9 +243,9 @@ const RecipesWithxplanation = () => {
 										{/* <p>{images_url ? images_url[0] : []}</p> */}
 										<CardMedia
 											component="img"
-											height="140"
 											image={images_url[index][0]}
 											alt={meal["Name"]}
+											max-height="20vw"
 										/>
 										<CardContent>
 											<Typography variant="h6">{meal["Name"]}</Typography>

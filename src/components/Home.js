@@ -50,7 +50,7 @@ const Home = () => {
           </button>
         </div>
         {/* Description */}
-        <p className="description">
+        <p className="home-description">
           The recipe recommendation app designed to inspire your healthy
           lifestyle!
         </p>
