@@ -1,16 +1,18 @@
 import logo from '../img/logo.svg';
 import { Box, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext} from 'react';
 import DietaryPreferences from './queryparts/dietary';
 import CuisinePreferences from './queryparts/cuisine';
 import IngredientSelection from './queryparts/ingridients';
 import {handlePostRequest} from '../services/backendService'
 import { useRecipes } from '../hooks/RecipeContext';
+import { PreferenceContext } from '../contexts/PreferenceContext';
 
 function Querymaker() {
 	const navigate = useNavigate();
 	const { setRecipes, setExplenations } = useRecipes();
+	const state = useContext(PreferenceContext)
 
 	const [dietaryPreferences, setDietaryPreferences] = useState({
 		vegetarian: false,
@@ -104,7 +106,12 @@ function Querymaker() {
 	}
 
 	const handleGenerateRecipies = () => {
-		navigate("/recipies")
+		if (state.preference === false) {
+			navigate("/recipies")
+		} else {
+			navigate("/recipesnoexplanation")
+		}
+
 		handlePostRequest(
 			setRecipes,
 			setExplenations,

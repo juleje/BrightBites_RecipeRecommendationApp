@@ -36,7 +36,7 @@ const Home = () => {
                   onChange={() => state.setPreference(!state.preference)}
                 />
               }
-              label="Add Healthiness Explanations"
+              label="Don't include healthiness explanations"
             />
           </Box>
 
