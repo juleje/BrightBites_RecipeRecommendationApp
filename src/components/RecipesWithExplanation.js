@@ -186,15 +186,15 @@ const RecipesWithxplanation = () => {
 		setIsLoading(!recipes);
 	}, [recipes]);
 
-	  const images_url = recipes ? (recipes.map((recipe) => 
+	const images_url = recipes ? (recipes.map((recipe) =>
 		recipe["Images"]
-		  ? recipe["Images"]
-			  .replace(/^c\("/, "") // Remove the `c("` at the start
-			  .replace(/"\)$/, "") // Remove the `")` at the end
-			  .split('", "') // Split strings based on `", "`
-			  .map((image) => image.trim().replace(/^"|"$/g, "")) // Trim spaces and remove extra quotes
-		  : [] // If no "Images" field, return an empty array
-	  )) : null;
+			? recipe["Images"]
+				.replace(/^c\("/, "") // Remove the `c("` at the start
+				.replace(/"\)$/, "") // Remove the `")` at the end
+				.split('", "') // Split strings based on `", "`
+				.map((image) => image.trim().replace(/^"|"$/g, "")) // Trim spaces and remove extra quotes
+			: [] // If no "Images" field, return an empty array
+	)) : null;
 
 	console.log(images_url);
 
@@ -234,7 +234,7 @@ const RecipesWithxplanation = () => {
 				) : recipes && recipes.length > 0 ? (
 					<Grid2 container spacing={3} className='cardgrid'>
 						{recipes.map((meal, index) => (
-							<Link key={index} to={`/recipe/${index}`} style={{ textDecoration: 'none', maxWidth: '100%'  }}>
+							<Link key={index} to={`/recipe/${index}`} style={{ textDecoration: 'none', maxWidth: '100%' }}>
 								<Grid2 item xs={12} sm={6} md={4}>
 									<Card className='card'>
 										{/* <p>{images_url ? images_url[0] : []}</p> */}

@@ -11,10 +11,10 @@
 
 /* Header Styling */
 .header { 
-	font-size: 24px;
+	font-size: 6vw;
 	font-weight: bold;
 	text-align: center;
-	margin-bottom: 20px;
+	margin-bottom: 4vw;
 	/* padding-bottom: 50px; */
 }
 
