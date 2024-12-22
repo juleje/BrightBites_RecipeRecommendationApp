@@ -181,8 +181,6 @@ def input_query(query):
 app = Flask(__name__)
 # Prod: CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 CORS(app)
-# Prod: CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
-CORS(app)
 
 # Example data
 tasks = [
@@ -213,4 +211,4 @@ def generate():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")

@@ -1,3 +1,10 @@
+//import ip from "ip";
+
+const ipAddress = "192.168.1.16"//ip.address();
+const pc = "http://127.0.0.1:5000"
+const mobile = `http://${ipAddress}:5000`; // Adjust if different IP is needed for mobile
+
+
 export const handlePostRequest = async (setRecipes, setExplenations, dietaryPreferences, cuisinePreferences, chosenIngredients) => {
 	try {
 		const data = {
@@ -7,7 +14,7 @@ export const handlePostRequest = async (setRecipes, setExplenations, dietaryPref
 		};
 
 		setRecipes(null)
-		const response = await fetch("http://127.0.0.1:5000/generate", {
+		const response = await fetch(mobile + "/generate", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -36,7 +43,7 @@ export const handlePostRequest = async (setRecipes, setExplenations, dietaryPref
 // Function To Test Backend
 export const fetchTestBackend = async () => {
 	try {
-		const response = await fetch("http://127.0.0.1:5000/");
+		const response = await fetch(mobile + "/");
 		if (!response.ok) {
 			throw new Error(`Error ${response.status}: ${response.statusText}`);
 		}
