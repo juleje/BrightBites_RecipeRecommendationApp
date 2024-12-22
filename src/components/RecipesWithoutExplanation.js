@@ -237,7 +237,7 @@ const RecipesWithxplanation = () => {
 				) : recipes && recipes.length > 0 ? (
 					<Grid2 container spacing={3} className='cardgrid'>
 						{recipes.map((meal, index) => (
-							<Link key={index} to={`/recipe/${index}`} style={{ textDecoration: 'none', maxWidth: '100%' }}>
+							<Link key={index} to={`/recipenoexplanation/${index}`} style={{ textDecoration: 'none', maxWidth: '100%' }}>
 								<Grid2 item xs={12} sm={6} md={4}>
 									<Card className='card'>
 										{/* <p>{images_url ? images_url[0] : []}</p> */}

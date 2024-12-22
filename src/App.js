@@ -20,12 +20,9 @@ function App() {
             <Route path="/query" element={<Querymaker />} />
             <Route path="/recipies" element={<RecipesWithExplanation />} />
             <Route path="/recipe/:index" element={<Recipe />} />
-            <Route
-              path="/recipesnoexplanation"
-              element={<RecipesWithoutExplanation />}
-            />
+            <Route path="/recipesnoexplanation" element={<RecipesWithoutExplanation />} />
             <Route path="/recipenoexplanation/:index" element={<RecipeWithoutExplanation />} />
-          </Routes>
+          </Routes>       
         </div>
       </BrowserRouter>
     </RecipeProvider>
