@@ -54,9 +54,18 @@
 	overflow: hidden;
 }
 
-.nutrition-info {
-	max-width: 90%;
+.nutrition_container {
+	display: flex;
+	justify-content: center;
 }
+
+
+.nutrition-info-overview { 
+    display: flex; /* Set the container to be a flex container */
+    justify-content: space-around; /* Space the items evenly */
+    align-items: flex-start; /* Align icons at the top (same height) */
+    width: 100%;
+} 
 
 .icon-container .description_overview {
     text-align: center;

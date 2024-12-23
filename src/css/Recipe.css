@@ -13,7 +13,7 @@
     background-color: #0b7b05;
     color: white;
     text-align: center;
-    padding: 20px 0;
+    padding: 23px 0;
     font-size: 24px;
     font-weight: bold;
     position: fixed;
@@ -88,16 +88,17 @@
     margin-bottom: 5px;
 }
 
-.nutrition-container {
+/* .nutrition-container {
     display: flex;
     justify-content: center;
-}
+} */
 
-.nutrition-info {
+.nutrition-info { 
     display: flex; /* Set the container to be a flex container */
     justify-content: space-around; /* Space the items evenly */
     align-items: flex-start; /* Align icons at the top (same height) */
-    gap: 20px; 
+    width: 100%;
+    gap: 5px;
 } 
   
 .icon-container {

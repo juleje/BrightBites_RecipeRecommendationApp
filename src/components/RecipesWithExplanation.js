@@ -46,10 +46,10 @@ function formatDuration(duration) {
 const NutritionInfo = (cals, sug, fat, sod) => {
 
 	const thresholds = {
-		Calories: { low: 200, medium: 400 },
+		Calories: { low: 400, medium: 700 },
 		Sugar: { low: 10, medium: 20 },
-		Fat: { low: 5, medium: 15 },
-		Sodium: { low: 150, medium: 300 }
+		Fat: { low: 10, medium: 22 },
+		Sodium: { low: 150, medium: 700 }
 	};
 
 	const iconMap = {
@@ -238,7 +238,7 @@ const RecipesWithxplanation = () => {
 													<RatingImage rating={meal["AggregatedRating"]} />
 												</div>
 											</div>
-											<div>
+											<div className='nutrition-info-overview'>
 												{NutritionInfo(meal["Calories"], meal["SugarContent"], meal["FatContent"], meal["SodiumContent"])}
 											</div>
 											<div className="description_over">

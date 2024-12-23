@@ -59,10 +59,10 @@ function formatDuration(duration) {
 const NutritionInfo = ({ nutrition_icons }) => {
 
 	const thresholds = {
-		calories: { low: 200, medium: 400 },
+		calories: { low: 400, medium: 700 },
 		sugar: { low: 10, medium: 20 },
-		fat: { low: 5, medium: 15 },
-		sodium: { low: 150, medium: 300 }
+		fat: { low: 10, medium: 22 },
+		sodium: { low: 150, medium: 700 }
 	};
 
 	const iconMap = {
