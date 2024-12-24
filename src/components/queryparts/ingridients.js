@@ -3,9 +3,11 @@ import { TextField, Box, Typography, Button, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import '../../css/IngredientSelection.css';
 import SearchIcon from '@mui/icons-material/Search';
-
+import { BorderLinearProgress } from './progressbar';
 
 const IngredientSelection = ({ handleGenerateRecipies, backToCuisine, chosenIngredients, setChosenIngredients }) => {
+
+
 	const [ingredient, setIngredient] = useState('');
 
 	const handleIngredientChange = (e) => {
@@ -29,6 +31,10 @@ const IngredientSelection = ({ handleGenerateRecipies, backToCuisine, chosenIngr
 			<Typography variant="h5" className="header">
 				Which ingredients would you like to include?
 			</Typography>
+
+			<Box sx={{ width: '100%' }} className="progress-bar">
+    			<BorderLinearProgress color="success" variant="determinate" value={80} />
+			</Box>
 
 			<Box className="input-container">
 				<TextField
@@ -75,10 +81,10 @@ const IngredientSelection = ({ handleGenerateRecipies, backToCuisine, chosenIngr
 			</Box>
 
 			<Box className="button-container">
-				<Button variant="contained" color="secondary" className="prev-btn" onClick={() => backToCuisine()}>
+				<Button variant="contained" color="error" className="prev-btn" onClick={() => backToCuisine()}>
 					Back
 				</Button>
-				<Button variant="contained" color="primary" className="find-btn" endIcon={<SearchIcon />} onClick={() => handleGenerateRecipies()}>
+				<Button variant="contained" color="success" className="find-btn" endIcon={<SearchIcon />} onClick={() => handleGenerateRecipies()}>
 					Find
 				</Button>
 			</Box>

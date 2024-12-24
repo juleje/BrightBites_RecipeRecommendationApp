@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Checkbox, FormControlLabel, Button, Typography, Box } from '@mui/material';
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import { styled } from '@mui/material/styles';
 import '../../css/DietaryPreferences.css';
+import { BorderLinearProgress } from './progressbar';
 
 const DietaryPreferences = ({ handleToCuisine, backToHome, dietaryPreferences, setDietaryPreferences }) => {
+
 	const [btnState, setBtnState] = useState("Skip");
 
 	const dietaryPreferencesLists = [
@@ -46,9 +50,13 @@ const DietaryPreferences = ({ handleToCuisine, backToHome, dietaryPreferences, s
 
 	return (
 		<div className="dietary-container">
-			<Typography variant="h5" className="header">
+			<Typography variant="h5" className="header-diet">
 				Any dietary preferences?
 			</Typography>
+
+			<Box sx={{ width: '100%' }} className="progress-bar">
+    			<BorderLinearProgress color="success" variant="determinate" value={0} />
+			</Box>
 
 			<Box className="checkbox-container checkbox-con">
 				{dietaryPreferencesLists.map((option) => (
@@ -66,10 +74,10 @@ const DietaryPreferences = ({ handleToCuisine, backToHome, dietaryPreferences, s
 			</Box>
 
 			<Box className="button-container">
-				<Button variant="contained" color="primary" className="prev-btn" onClick={() => backToHome()}>
+				<Button variant="contained" color="error" className="prev-btn" onClick={() => backToHome()}>
 					Back
 				</Button>
-				<Button variant="contained" color="secondary" className="skip-btn" onClick={() => handleToCuisine()}>
+				<Button variant="contained" color="success" className="skip-btn" onClick={() => handleToCuisine()}>
 					{btnState}
 				</Button>
 			</Box>
