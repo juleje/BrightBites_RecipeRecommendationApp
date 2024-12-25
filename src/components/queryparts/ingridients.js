@@ -28,11 +28,13 @@ const IngredientSelection = ({ handleGenerateRecipies, backToCuisine, chosenIngr
 
 	return (
 		<div className="ingredient-container">
-			<Typography variant="h5" className="header">
-				Which ingredients would you like to include?
-			</Typography>
-
-			<Box sx={{ width: '100%' }} className="progress-bar">
+			<div>
+				<Typography variant="h5" className="header">
+					Which ingredients would you like to include?
+				</Typography>
+			</div>
+			
+			<Box sx={{ width: '100%' }} className="progress-bar-ingr">
     			<BorderLinearProgress color="success" variant="determinate" value={80} />
 			</Box>
 

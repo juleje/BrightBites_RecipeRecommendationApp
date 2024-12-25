@@ -98,7 +98,7 @@
     justify-content: space-around; /* Space the items evenly */
     align-items: flex-start; /* Align icons at the top (same height) */
     width: 100%;
-    gap: 5px;
+    gap: 8px;
 } 
   
 .icon-container {

@@ -164,17 +164,18 @@ const RatingImage = ({ rating }) => {
 };
 
 const getRandomMotivation = (calories) => {
+	console.log(calories);
 	const motivations = [
 		`This meal equals ${Math.ceil(calories / 250)} of your favorite chocolate bars!`,
 		`If you raise your fork ${Math.ceil(calories / 0.5)} of times you've burned as much calories as the meal equals!`,
-		`While dancing during a night out, this meal equals ${Math.ceil(calories / 300)} hours of dancing!`,
-		`This meal is equivalent to ${Math.ceil(calories / 150)} salads!`,
-		`If you have sex for ${Math.ceil(calories / 100)} times, this meal is fully gone!`,
-		`It’s like ${Math.ceil(calories / 250)} games of intense beach volleyball!`,
-		`If you climb ${Math.ceil(calories / 10)} flights of stairs, this meal is balanced out!`,
-		`This is equal to ${Math.ceil(calories / 50)} hours of binge-watching TV while fidgeting!`,
-		`This meal equals ${Math.ceil(calories / 10)} minutes of running away from zombies!`,
-		`You could garden for ${Math.ceil(calories / 200)} hours to cancel out this meal!`
+		`While dancing during a night out, this meal equals ${Math.ceil(calories / 300) == 1 ? "1 hour" : `${Math.ceil(calories / 300)} hours`} of dancing!`,
+		`This meal is equivalent to ${Math.ceil(calories / 150) == 1 ? "1 salad!" : `${Math.ceil(calories / 150)} salads!`}`,
+		`If you have sex ${Math.ceil(calories / 100) == 1 ? "once" : `${Math.ceil(calories / 100)} times`}, this meal is fully gone!`,
+		`It’s like ${Math.ceil(calories / 250) == 1 ? "1 game" : `${Math.ceil(calories / 250)} games`} of intense beach volleyball!`,
+		`If you climb ${Math.ceil(calories / 10) == 1 ? "1 flight" : `${Math.ceil(calories / 10)} flights`} of stairs, this meal is balanced out!`,
+		`This is equal to ${Math.ceil(calories / 50) == 1 ? "1 hour" : `${Math.ceil(calories / 50)} hours`} of binge-watching TV while fidgeting!`,
+		`This meal equals ${Math.ceil(calories / 10) == 1 ? "1 minute" : `${Math.ceil(calories / 10)} minutes`} of running away from zombies!`,
+		`You could garden for ${Math.ceil(calories / 200) == 1 ? "1 hour" : `${Math.ceil(calories / 200)} hours`} to cancel out this meal!`
 	];
 
 	const randomIndex = Math.floor(Math.random() * motivations.length);
