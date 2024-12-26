@@ -58,7 +58,7 @@ const CuisinePreferences = ({ handleToIngrdidients, backToDietary, cuisinePrefer
 
   return (
     <div className="dietary-container">
-      <Typography variant="h5" className="header">
+      <Typography variant="h5" className="header-diet">
         Any prefered cuisine?
       </Typography>
 
