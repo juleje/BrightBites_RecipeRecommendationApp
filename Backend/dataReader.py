@@ -44,8 +44,7 @@ print(f"Percentage of daily sodium: {sod_percent:.1f}%")
 
 #Recommended per meal: 600/2000= 30%
 overal_percent = cal_percent+sug_percent+fat_percent+sod_percent
-overal_permeal = 400
-scaled = overal_percent/overal_permeal
+scaled = overal_percent/400
 benead = scaled<0.3
 print(f"Overal score: {overal_percent:.1f}")
 print(f"Overal score: {scaled:.1f}")
