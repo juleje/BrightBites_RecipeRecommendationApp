@@ -25,7 +25,6 @@ print("sod: " + str(meal_sod) + " mg")
 
 #const thresholds = {Calories: { low: 400, medium: 700 },Sugar: { low: 10, medium: 20 },Fat: { low: 10, medium: 22 },Sodium: { low: 150, medium: 700 }};
 # Define the daily recommended values
-<<<<<<< HEAD
 
 daily_cal = 2000 / 3                        # 2000 kcal as mean daily intake
 daily_sod = 2000 / 3                        # 2g sodium as maximum daily intake
@@ -36,12 +35,6 @@ print("Daily recommended cal: " + str(daily_cal) + " kcal")
 print("Daily recommended sug: " + str(daily_sug) + " g") 
 print("Daily recommended Fat: " + str(daily_fat) + " g")  
 print("Daily recommended sod: " + str(daily_sod) + " mg") 
-=======
-daily_cal = 2000
-daily_sug = 50
-daily_fat = 150
-daily_sod = 2000
->>>>>>> origin/main
 
 # Calculate the percentage of daily value for each nutrient
 cal_percent = (meal_cal / daily_cal) * 100
