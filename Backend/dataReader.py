@@ -18,17 +18,23 @@ meal_fat = recipes['FatContent']
 meal_sod = recipes['SodiumContent']
 
 print("name: " + recipes['Name']) 
-print("cal: " + str(meal_cal)) 
-print("sug: " + str(meal_sug)) 
-print("Fat: " + str(meal_fat))  
-print("sod: " + str(meal_sod)) 
+print("cal: " + str(meal_cal) + " kcal") 
+print("sug: " + str(meal_sug) + " g") 
+print("Fat: " + str(meal_fat) + " g")  
+print("sod: " + str(meal_sod) + " mg") 
 
 #const thresholds = {Calories: { low: 400, medium: 700 },Sugar: { low: 10, medium: 20 },Fat: { low: 10, medium: 22 },Sodium: { low: 150, medium: 700 }};
 # Define the daily recommended values
-daily_cal = 2000
-daily_sug = 50
-daily_fat = 150
-daily_sod = 5000
+
+daily_cal = 2000 / 3                        # 2000 kcal as mean daily intake
+daily_sod = 2000 / 3                        # 2g sodium as maximum daily intake
+daily_fat = (0.3 * daily_cal) / 9           # 1 calory fat equals 9 grams
+daily_sug = (0.1 * daily_cal) / 4           # 1 calory carbohydrates equals 4 grams
+
+print("Daily recommended cal: " + str(daily_cal)) 
+print("Daily recommended sug: " + str(daily_sug)) 
+print("Daily recommended Fat: " + str(daily_fat))  
+print("Daily recommended sod: " + str(daily_sod)) 
 
 # Calculate the percentage of daily value for each nutrient
 cal_percent = (meal_cal / daily_cal) * 100
@@ -37,15 +43,12 @@ fat_percent = (meal_fat / daily_fat) * 100
 sod_percent = (meal_sod / daily_sod) * 100
 
 # Print the results
-print(f"Percentage of daily calories: {cal_percent:.1f}%")
-print(f"Percentage of daily sugar: {sug_percent:.1f}%")
-print(f"Percentage of daily fat: {fat_percent:.1f}%")
-print(f"Percentage of daily sodium: {sod_percent:.1f}%")
+print(f"Percentage of calories for one meal: {cal_percent:.1f}%")
+print(f"Percentage of sugar for one meal: {sug_percent:.1f}%")
+print(f"Percentage of fat for one meal: {fat_percent:.1f}%")
+print(f"Percentage of sodium for one meal: {sod_percent:.1f}%")
 
 #Recommended per meal: 600/2000= 30%
 overal_percent = cal_percent+sug_percent+fat_percent+sod_percent
 scaled = overal_percent/400
-benead = scaled<0.3
-print(f"Overal score: {overal_percent:.1f}")
-print(f"Overal score: {scaled:.1f}")
-print(f"is benead 30?: {benead}")
+print(f"Overal score: {scaled:.3f}")     # number to be used for comparison accross meals
