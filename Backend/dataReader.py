@@ -28,7 +28,7 @@ print("sod: " + str(meal_sod))
 daily_cal = 2000
 daily_sug = 50
 daily_fat = 150
-daily_sod = 5000
+daily_sod = 2000
 
 # Calculate the percentage of daily value for each nutrient
 cal_percent = (meal_cal / daily_cal) * 100
