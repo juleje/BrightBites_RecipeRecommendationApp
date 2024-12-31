@@ -31,10 +31,10 @@ daily_sod = 2000 / 3                        # 2g sodium as maximum daily intake
 daily_fat = (0.3 * daily_cal) / 9           # 1 calory fat equals 9 grams
 daily_sug = (0.1 * daily_cal) / 4           # 1 calory carbohydrates equals 4 grams
 
-print("Daily recommended cal: " + str(daily_cal)) 
-print("Daily recommended sug: " + str(daily_sug)) 
-print("Daily recommended Fat: " + str(daily_fat))  
-print("Daily recommended sod: " + str(daily_sod)) 
+print("Daily recommended cal: " + str(daily_cal) + " kcal") 
+print("Daily recommended sug: " + str(daily_sug) + " g") 
+print("Daily recommended Fat: " + str(daily_fat) + " g")  
+print("Daily recommended sod: " + str(daily_sod) + " mg") 
 
 # Calculate the percentage of daily value for each nutrient
 cal_percent = (meal_cal / daily_cal) * 100
