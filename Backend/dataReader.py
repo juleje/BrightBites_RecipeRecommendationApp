@@ -26,18 +26,18 @@ print("sod: " + str(meal_sod) + " mg")
 #const thresholds = {Calories: { low: 400, medium: 700 },Sugar: { low: 10, medium: 20 },Fat: { low: 10, medium: 22 },Sodium: { low: 150, medium: 700 }};
 # Define the daily recommended values
 
-daily_cal = 2000 / 3                        # 2000 kcal as mean daily intake
+cal_per_meal = 2000 / 3                        # 2000 kcal as mean daily intake
 daily_sod = 2000 / 3                        # 2g sodium as maximum daily intake
-daily_fat = (0.3 * daily_cal) / 9           # 1 calory fat equals 9 grams
-daily_sug = (0.1 * daily_cal) / 4           # 1 calory carbohydrates equals 4 grams
+daily_fat = (0.3 * cal_per_meal) / 9           # 1 calory fat equals 9 grams
+daily_sug = (0.1 * cal_per_meal) / 4           # 1 calory carbohydrates equals 4 grams
 
-print("Daily recommended cal: " + str(daily_cal) + " kcal") 
-print("Daily recommended sug: " + str(daily_sug) + " g") 
-print("Daily recommended Fat: " + str(daily_fat) + " g")  
-print("Daily recommended sod: " + str(daily_sod) + " mg") 
+print("Recommended cal/meal: " + str(cal_per_meal) + " kcal") 
+print("Recommended sug/meal: " + str(daily_sug) + " g") 
+print("Recommended Fat/meal: " + str(daily_fat) + " g")  
+print("Recommended sod/meal: " + str(daily_sod) + " mg") 
 
 # Calculate the percentage of daily value for each nutrient
-cal_percent = (meal_cal / daily_cal) * 100
+cal_percent = (meal_cal / cal_per_meal) * 100
 sug_percent = (meal_sug / daily_sug) * 100
 fat_percent = (meal_fat / daily_fat) * 100
 sod_percent = (meal_sod / daily_sod) * 100
@@ -51,4 +51,5 @@ print(f"Percentage of sodium for one meal: {sod_percent:.1f}%")
 #Recommended per meal: 600/2000= 30%
 overal_percent = cal_percent+sug_percent+fat_percent+sod_percent
 scaled = overal_percent/400
-print(f"Overal score: {scaled:.3f}")     # number to be used for comparison accross meals
+print(f"Overal score scaled (<1: healthy, >1: unhealthy): {scaled:.3f}")     # number to be used for comparison accross meals
+print(f"Overal score: {overal_percent:.3f}") 
