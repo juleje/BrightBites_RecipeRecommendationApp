@@ -8,7 +8,10 @@ def lookup_recipe_by_name(name):
     return result
 
 
-recipes = lookup_recipe_by_name("Slow Cooker Thai Chicken").iloc[0]
+
+look = "asian ginger"
+
+recipes = lookup_recipe_by_name(look).iloc[0]
 
 
 # Define the meal's nutritional values
@@ -43,13 +46,13 @@ fat_percent = (meal_fat / fat_per_meal) * 100
 sod_percent = (meal_sod / daily_sod) * 100
 
 # Print the results
-print(f"Percentage of calories for one meal: {cal_percent:.1f}%")
-print(f"Percentage of sugar for one meal: {sug_percent:.1f}%")
-print(f"Percentage of fat for one meal: {fat_percent:.1f}%")
-print(f"Percentage of sodium for one meal: {sod_percent:.1f}%")
+print(f"Percentage of calories for one meal: {cal_percent:.1f}")
+print(f"Percentage of sugar for one meal: {sug_percent:.1f}")
+print(f"Percentage of fat for one meal: {fat_percent:.1f}")
+print(f"Percentage of sodium for one meal: {sod_percent:.1f}")
 
 #Recommended per meal: 600/2000= 30%
 overal_percent = cal_percent+sug_percent+fat_percent+sod_percent
 scaled = overal_percent/400
-print(f"Overal score scaled (<1: healthy, >1: unhealthy): {scaled:.3f}")     # number to be used for comparison accross meals
+print(f"Overal score scaled (<1: healthy, >1: unhealthy): {scaled:.3f}".replace(".",","))     # number to be used for comparison accross meals
 print(f"Overal score: {overal_percent:.3f}") 
