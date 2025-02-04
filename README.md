@@ -12,6 +12,8 @@ with, followed by a survey. The study showed that participants did not significa
 
 The paper is provided in this repo: Bright_Bites.pdf
 
+## Gathered Experience
+Throughout this project, we gained valuable experience in both frontend and backend development. We built the frontend using React, incorporating Material UI for sleek and responsive styling. On the backend, we set up a robust system using Python and Flask. A major highlight was working with a bespoke LLM trained on a TF-IDF matrix, as well as integrating large language models with existing applications. We also honed our research skills to ensure the UI was both user-friendly and aesthetically pleasing for our specific users. Most importantly, we developed these skills while collaborating efficiently with my team.
 
 ## Install
 
