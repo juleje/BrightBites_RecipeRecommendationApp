@@ -14,7 +14,7 @@ export const handlePostRequest = async (setRecipes, setExplenations, dietaryPref
 		};
 
 		setRecipes(null)
-		const response = await fetch(pc + "/generate", {
+		const response = await fetch(mobile + "/generate", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

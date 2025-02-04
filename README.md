@@ -1,6 +1,18 @@
-# Getting Started with FMMI
+# Bright Bites
+A mobile recipe recommendation application.
+## About
+Bright Bites, which is a mobile recipe recommendation application that will provide recipes to a user according to their tastes. 
+To encourage users to choose healthier options, additional health explanations are added with each recipe. The system first takes user preferences as input:
+cuisine preferences, diets and ingredients. These then serve as input for an AI model, which will generate recipes accordingly, along with healthiness explanations.
+Several types of explanations were used: graphical with icons, textual with motivations and detailed health benefits/risks.
+The Bright Bites application is build for a universitair study for the course "Fundaments for Human and Machine Interaction".
+The aim of this study is to find how these explanations would affect users in choosing healthier recipes. 
+To do this, a user study (N = 24) was conducted where users were asked to use the app to choose a recipe, once without explanations and once
+with, followed by a survey. The study showed that participants did not significantly choose healthier options when provided with the healthiness explanations.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The paper is provided in this repo: Bright_Bites.pdf
+
+
 ## Install
 
 ### Install Backend
@@ -8,7 +20,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 #### Install python
 
 #### Download files from healthify drive
-- Log in with healthifygroup@gmail.com/420blazeit69!!!.
+- Log in with healthifygroup@gmail.com.
 - Go to drive.
 - Download: tfidf_matrix.npz, new_recipes.indexed.parquet, vectorizer.joblib
 - Make in /Backend new folder /data.
@@ -26,7 +38,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - uncomment line 17,18,19: nltk.download("stopwords")
   - run ones
   - comment line 17,18,19
-- d
 
 ### Install Frontend
 
