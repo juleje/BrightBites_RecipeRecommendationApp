@@ -1,5 +1,5 @@
 # Bright Bites
-A mobile recipe recommendation application.
+A mobile explainable ai recipe recommendation application.
 ## About
 Bright Bites, which is a mobile recipe recommendation application that will provide recipes to a user according to their tastes. 
 To encourage users to choose healthier options, additional health explanations are added with each recipe. The system first takes user preferences as input:
